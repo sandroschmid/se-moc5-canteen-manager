@@ -32,7 +32,7 @@
           android:id="@+id/etUsername"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:hint="@string/app_login_email_hint0"
+          android:hint="@string/app_login_user_name_hint"
           android:inputType="textEmailAddress"
           android:maxLines="1"
           android:singleLine="true"

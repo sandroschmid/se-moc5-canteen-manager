@@ -7,7 +7,7 @@
 
   <!-- Login -->
   <string name="app_login_title">Sign in</string>
-  <string name="app_login_email_hint0">Email</string>
+  <string name="app_login_user_name_hint">User name</string>
   <string name="app_login_password_hint">Password</string>
   <string name="app_login_sign_in">Sign in</string>
 
