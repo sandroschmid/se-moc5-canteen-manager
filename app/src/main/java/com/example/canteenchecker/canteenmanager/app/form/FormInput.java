@@ -53,6 +53,8 @@ public abstract class FormInput<TInput extends FormInput<TInput, ?, ?>, TView ex
     return view;
   }
 
+  public abstract void setValue(TValue value);
+
   public abstract TValue getValue();
 
   public final boolean isValid() {

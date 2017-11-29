@@ -21,9 +21,14 @@
   <string name="app_canteen_hint_address">Address</string>
   <string name="app_canteen_hint_website">Website</string>
   <string name="app_canteen_hint_phone">Phone</string>
+  <plurals name="app_canteen_label_avg_waiting_time">
+    <item quantity="one">Average waiting time: 1 minute</item>
+    <item quantity="other">Average waiting time: %d minutes</item>
+  </plurals>
 
   <!-- Errors -->
   <string name="app_error_field_required">This field is required</string>
   <string name="app_error_load_failure_admin_canteen">Could not load canteen</string>
+  <string name="app_common_currency_euro">€</string>
 
 </resources>

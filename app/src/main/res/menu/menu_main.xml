@@ -6,6 +6,6 @@
     android:id="@+id/menuSignOut"
     android:icon="@mipmap/ic_lock"
     android:title="@string/menu_sign_out"
-    app:showAsAction="ifRoom" />
+    app:showAsAction="never" />
 
 </menu>

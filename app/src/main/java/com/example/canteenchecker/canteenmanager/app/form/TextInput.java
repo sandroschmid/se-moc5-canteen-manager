@@ -63,6 +63,11 @@ public final class TextInput extends FormInput<TextInput, AppCompatEditText, Str
   }
 
   @Override
+  public void setValue(final String value) {
+    view.setText(value.trim());
+  }
+
+  @Override
   public String getValue() {
     return view.getText().toString().trim();
   }

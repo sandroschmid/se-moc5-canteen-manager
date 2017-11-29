@@ -8,6 +8,7 @@ import com.example.canteenchecker.canteenmanager.app.proxy.Backend;
 import com.example.canteenchecker.canteenmanager.app.proxy.BackendException;
 import com.example.canteenchecker.canteenmanager.app.proxy.NotAuthenticatedException;
 import com.example.canteenchecker.canteenmanager.app.request.BaseRequest;
+import com.example.canteenchecker.canteenmanager.app.request.PutAdminCanteenRequest;
 import com.example.canteenchecker.canteenmanager.event.BaseRequestResultEvent;
 
 /**
@@ -21,10 +22,13 @@ public final class AdminCanteenService extends BaseBackendService<Canteen> {
 
   @Override
   Canteen executeRequest(final Intent intent) throws NotAuthenticatedException, BackendException {
-    if (intent.getSerializableExtra(BaseRequest.KEY_METHOD).equals(BaseRequest.Method.GET)) {
-      return Backend.getInstance().getAdminCanteen(getAuthToken());
+    final Backend backend = Backend.getInstance();
+    final BaseRequest.Method method = (BaseRequest.Method) intent.getSerializableExtra(BaseRequest.KEY_METHOD);
+    if (BaseRequest.Method.GET.equals(method)) {
+      return backend.getAdminCanteen(getAuthToken());
     } else {
-      return null; // TODO
+      final Canteen canteen = intent.getParcelableExtra(PutAdminCanteenRequest.KEY_DTO);
+      return backend.putAdminCanteen(getAuthToken(), canteen);
     }
   }
 

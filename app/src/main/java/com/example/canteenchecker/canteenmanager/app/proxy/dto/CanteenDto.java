@@ -40,6 +40,22 @@ public final class CanteenDto {
   @JsonProperty("ratings")
   private List<Object> ratings;
 
+  public CanteenDto() {
+    // empty
+  }
+
+  public CanteenDto(Canteen canteen) {
+    canteenId = Integer.parseInt(canteen.getId());
+    name = canteen.getName();
+    meal = canteen.getMeal();
+    mealPrice = canteen.getMealPrice();
+    address = canteen.getAddress();
+    website = canteen.getWebsite();
+    phone = canteen.getPhoneNumber();
+    averageRating = canteen.getAverageRating();
+    averageWaitingTime = canteen.getAverageWaitingTime();
+  }
+
   public Canteen toCanteen() {
     return new Canteen(
         String.valueOf(canteenId),

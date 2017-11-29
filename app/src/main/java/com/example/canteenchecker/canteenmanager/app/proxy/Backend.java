@@ -29,4 +29,9 @@ public final class Backend {
     final CanteenDto dto = http.get("/Admin/Canteen", authToken, CanteenDto.class);
     return dto == null ? null : dto.toCanteen();
   }
+
+  public Canteen putAdminCanteen(final String authToken, final Canteen canteen) throws BackendException {
+    http.put("/Admin/Canteen", authToken, new CanteenDto(canteen));
+    return canteen;
+  }
 }

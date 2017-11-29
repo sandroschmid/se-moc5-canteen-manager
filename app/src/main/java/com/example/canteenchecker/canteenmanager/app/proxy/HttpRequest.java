@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 
@@ -21,7 +22,7 @@ public final class HttpRequest {
 
   public <T> T get(final String relativeURL, final String authToken, final Class<T> cls) throws BackendException {
     try {
-      final URLConnection connection = createConnection(relativeURL, authToken);
+      final URLConnection connection = createConnection("GET", relativeURL, authToken);
       final InputStream inputStream = connection.getInputStream();
       try {
         return new ObjectMapper().readValue(inputStream, cls);
@@ -44,7 +45,7 @@ public final class HttpRequest {
   ) throws BackendException {
     final ObjectMapper objectMapper = new ObjectMapper();
     try {
-      final URLConnection connection = createConnection(relativeURL, authToken);
+      final HttpURLConnection connection = createConnection("POST", relativeURL, authToken);
       connection.setDoOutput(true);
       final OutputStream outputStream = connection.getOutputStream();
       try {
@@ -53,6 +54,7 @@ public final class HttpRequest {
         try {
           outputStream.close();
         } catch (IOException ignored) {
+          throw new BackendException(ignored);
         }
       }
 
@@ -63,6 +65,7 @@ public final class HttpRequest {
         try {
           inputStream.close();
         } catch (IOException ignored) {
+          throw new BackendException(ignored);
         }
       }
     } catch (IOException e) {
@@ -70,9 +73,34 @@ public final class HttpRequest {
     }
   }
 
-  private URLConnection createConnection(
-      String relativeURL,
-      String authToken
+  public <REQUEST> void put(
+      final String relativeURL,
+      final String authToken,
+      final REQUEST data
+  ) throws BackendException {
+    final ObjectMapper objectMapper = new ObjectMapper();
+    try {
+      final HttpURLConnection connection = createConnection("PUT", relativeURL, authToken);
+      connection.setDoOutput(true);
+      final OutputStream outputStream = connection.getOutputStream();
+      try {
+        objectMapper.writeValue(outputStream, data);
+      } finally {
+        try {
+          outputStream.close();
+        } catch (IOException ignored) {
+          throw new BackendException(ignored);
+        }
+      }
+    } catch (IOException e) {
+      throw new BackendException(e);
+    }
+  }
+
+  private HttpURLConnection createConnection(
+      final String method,
+      final String relativeURL,
+      final String authToken
   ) throws BackendException {
     // add artificial delay for testing
     try {
@@ -82,8 +110,12 @@ public final class HttpRequest {
     }
 
     try {
-      final URLConnection connection = new URL(new URL(SERVICE_BASE_URL), relativeURL).openConnection();
+      final HttpURLConnection connection = (HttpURLConnection) new URL(
+          new URL(SERVICE_BASE_URL),
+          relativeURL
+      ).openConnection();
       connection.setRequestProperty("Content-Type", "application/json");
+      connection.setRequestMethod(method);
       if (authToken != null) {
         connection.setRequestProperty("Authorization", String.format("Bearer %s", authToken));
       }
