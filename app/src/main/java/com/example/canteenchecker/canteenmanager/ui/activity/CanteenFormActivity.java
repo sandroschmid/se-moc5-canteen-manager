@@ -1,5 +1,6 @@
 package com.example.canteenchecker.canteenmanager.ui.activity;
 
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -9,16 +10,21 @@ import com.example.canteenchecker.canteenmanager.R;
 /**
  * @author sschmid
  */
-public final class CanteenFormActivity extends BaseFormActivity {
+public final class CanteenFormActivity extends BaseActivity {
 
   @Override
   protected int getLayout() {
-    return R.layout.activity_canteen_form;
+    return R.layout.fragment_canteen_form;
   }
 
   @Override
   protected void initView() {
-    super.initView();
+    // nothing to do
+  }
+
+  @Override
+  protected void restoreSavedState(final Bundle savedInstanceState) {
+    // nothing to do
   }
 
   @Override
@@ -37,10 +43,5 @@ public final class CanteenFormActivity extends BaseFormActivity {
       default:
         return super.onOptionsItemSelected(item);
     }
-  }
-
-  @Override
-  public void submit() {
-
   }
 }
