@@ -1,4 +1,4 @@
-package com.example.canteenchecker.canteenmanager.ui.activity;
+package com.example.canteenchecker.canteenmanager.ui.fragment;
 
 import android.view.View;
 
@@ -8,9 +8,9 @@ import com.example.canteenchecker.canteenmanager.ui.utility.LoadingViewHandler;
 /**
  * @author sschmid
  */
-public abstract class BaseLoadingActivity extends BaseActivity implements LoadingViewHandler.LoadingView {
+public abstract class BaseLoadingFragment extends BaseFragment implements LoadingViewHandler.LoadingView {
 
-  private final LoadingViewHandler loadingViewHandler = new LoadingViewHandler(this, this);
+  private final LoadingViewHandler loadingViewHandler = new LoadingViewHandler(getContext(), this);
 
   private View vProgress;
   private View vContent;
@@ -41,9 +41,9 @@ public abstract class BaseLoadingActivity extends BaseActivity implements Loadin
   }
 
   @Override
-  protected void initView() {
-    vProgress = findViewById(R.id.vProgress);
-    vContent = findViewById(R.id.vContent);
+  protected void initView(final View view) {
+    vProgress = view.findViewById(R.id.vProgress);
+    vContent = view.findViewById(R.id.vContent);
     loadingViewHandler.initView();
   }
 }

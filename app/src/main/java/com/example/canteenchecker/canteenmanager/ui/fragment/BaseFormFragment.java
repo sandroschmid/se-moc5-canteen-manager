@@ -1,4 +1,4 @@
-package com.example.canteenchecker.canteenmanager.ui.activity;
+package com.example.canteenchecker.canteenmanager.ui.fragment;
 
 import android.os.Bundle;
 import android.view.View;
@@ -10,7 +10,7 @@ import com.example.canteenchecker.canteenmanager.ui.utility.FormViewHandler;
 /**
  * @author sschmid
  */
-public abstract class BaseFormActivity extends BaseLoadingActivity implements FormViewHandler.FormView {
+public abstract class BaseFormFragment extends BaseLoadingFragment implements FormViewHandler.FormView {
 
   private final FormViewHandler formViewHandler = new FormViewHandler(this);
 
@@ -43,20 +43,20 @@ public abstract class BaseFormActivity extends BaseLoadingActivity implements Fo
   }
 
   @Override
-  protected void initView() {
-    super.initView();
-    vSubmit = findViewById(R.id.vSubmit);
-    formViewHandler.initView();
-  }
-
-  @Override
-  protected void onSaveInstanceState(final Bundle outState) {
+  public void onSaveInstanceState(final Bundle outState) {
     super.onSaveInstanceState(outState);
     formViewHandler.onSaveInstanceState(outState);
   }
 
   @Override
-  protected void restoreSavedState(final Bundle savedInstanceState) {
+  public void restoreSavedState(final Bundle savedInstanceState) {
     formViewHandler.restoreSavedState(savedInstanceState);
+  }
+
+  @Override
+  protected void initView(final View view) {
+    super.initView(view);
+    vSubmit = view.findViewById(R.id.vSubmit);
+    formViewHandler.initView();
   }
 }

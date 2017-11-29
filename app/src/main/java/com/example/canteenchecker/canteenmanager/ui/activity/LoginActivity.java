@@ -72,7 +72,7 @@ public final class LoginActivity extends BaseFormActivity {
   }
 
   @Override
-  protected void submit() {
+  public void submit() {
     final String userName = this.<TextInput>getInput(R.id.etUsername).getValue();
     final String password = this.<TextInput>getInput(R.id.etPassword).getValue();
 

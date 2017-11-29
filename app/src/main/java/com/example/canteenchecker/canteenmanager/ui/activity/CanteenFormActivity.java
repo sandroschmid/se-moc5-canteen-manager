@@ -40,7 +40,7 @@ public final class CanteenFormActivity extends BaseFormActivity {
   }
 
   @Override
-  protected void submit() {
+  public void submit() {
 
   }
 }
