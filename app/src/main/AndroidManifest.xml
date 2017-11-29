@@ -21,6 +21,7 @@
       android:name="com.google.android.geo.API_KEY"
       android:value="@string/google_maps_api_key" />
 
+    <!-- region Activity -->
     <activity
       android:name=".ui.activity.LoginActivity"
       android:label="@string/app_login_title">
@@ -29,6 +30,17 @@
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
+
+    <!-- endregion -->
+
+    <!-- region Service -->
+
+    <service
+      android:name=".service.AuthenticateService"
+      android:exported="false" />
+
+    <!-- endregion -->
+
   </application>
 
 </manifest>

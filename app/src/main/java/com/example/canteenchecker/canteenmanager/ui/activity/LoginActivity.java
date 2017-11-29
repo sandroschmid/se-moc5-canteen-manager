@@ -1,5 +1,6 @@
 package com.example.canteenchecker.canteenmanager.ui.activity;
 
+import android.content.Context;
 import android.support.v7.widget.AppCompatEditText;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -8,13 +9,40 @@ import android.widget.TextView;
 
 import com.example.canteenchecker.canteenmanager.R;
 import com.example.canteenchecker.canteenmanager.model.form.TextInput;
+import com.example.canteenchecker.canteenmanager.request.AuthenticateRequest;
+import com.example.canteenchecker.canteenmanager.request.BaseRequestSender;
 
 /**
  * @author sschmid
  */
 public class LoginActivity extends BaseFormActivity {
 
+  private final class AuthenticateRequestSender extends BaseRequestSender<String> {
+
+    protected AuthenticateRequestSender(final Context context) {
+      super(context);
+    }
+
+    @Override
+    public void onResult(final String authToken) {
+      Log.d(TAG, String.format("Token %s received", authToken));
+      stopLoading();
+    }
+
+    @Override
+    public void onFailure() {
+      Log.e(TAG, "Auth failed");
+      stopLoading();
+    }
+  }
+
   private static final String TAG = LoginActivity.class.getName();
+
+  private final AuthenticateRequestSender requestSender;
+
+  public LoginActivity() {
+    requestSender = new AuthenticateRequestSender(this);
+  }
 
   @Override
   protected int getLayout() {
@@ -44,9 +72,9 @@ public class LoginActivity extends BaseFormActivity {
 
   @Override
   protected void submit() {
-    final String email = this.<TextInput>getInput(R.id.etUsername).getValue();
+    final String userName = this.<TextInput>getInput(R.id.etUsername).getValue();
     final String password = this.<TextInput>getInput(R.id.etPassword).getValue();
 
-    Log.d(TAG, String.format("Authenticate using %s:%s", email, password));
+    new AuthenticateRequest(requestSender, userName, password).send();
   }
 }
