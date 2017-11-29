@@ -87,7 +87,7 @@ public abstract class BaseFormActivity extends BaseLoadingActivity {
 
   private View validateForm() {
     View firstInvalidView = null;
-    for (final FormInput<?, ?, ?> input : inputs.values()) {
+    for (final FormInput<?, ?, ?> input : FormInput.sort(inputs.values())) {
       if (!input.validate() && firstInvalidView == null) {
         firstInvalidView = input.getView();
       }

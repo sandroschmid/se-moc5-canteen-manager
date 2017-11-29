@@ -53,7 +53,8 @@ public final class LoginActivity extends BaseFormActivity {
   protected void initView() {
     super.initView();
 
-    addInput(TextInput.createRequiredTextInput((AppCompatEditText) findViewById(R.id.etUsername)));
+    int order = 1;
+    addInput(TextInput.createRequiredTextInput(order++, (AppCompatEditText) findViewById(R.id.etUsername)));
 
     final AppCompatEditText etPassword = findViewById(R.id.etPassword);
     etPassword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -67,7 +68,7 @@ public final class LoginActivity extends BaseFormActivity {
       }
     });
 
-    addInput(TextInput.createRequiredTextInput(etPassword));
+    addInput(TextInput.createRequiredTextInput(order, etPassword));
   }
 
   @Override

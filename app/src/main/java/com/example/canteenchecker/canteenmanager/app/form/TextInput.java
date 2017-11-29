@@ -25,12 +25,16 @@ public final class TextInput extends FormInput<TextInput, AppCompatEditText, Str
     }
   }
 
-  public static TextInput createRequiredTextInput(final AppCompatEditText view) {
-    return new TextInput(view, new RequiredValidator());
+  public static TextInput createRequiredTextInput(final int order, final AppCompatEditText view) {
+    return new TextInput(order, view, new RequiredValidator());
   }
 
-  public static TextInput createRequiredTextInput(final AppCompatEditText view, final Validator<TextInput> validator) {
-    return new TextInput(view, new Validator<TextInput>() {
+  public static TextInput createRequiredTextInput(
+      final int order,
+      final AppCompatEditText view,
+      final Validator<TextInput> validator
+  ) {
+    return new TextInput(order, view, new Validator<TextInput>() {
       private final RequiredValidator requiredValidator = new RequiredValidator();
 
       @Override
@@ -50,12 +54,12 @@ public final class TextInput extends FormInput<TextInput, AppCompatEditText, Str
     });
   }
 
-  public TextInput(final AppCompatEditText view) {
-    super(view);
+  public TextInput(final int order, final AppCompatEditText view) {
+    super(order, view);
   }
 
-  public TextInput(final AppCompatEditText view, final Validator<TextInput> validator) {
-    super(view, validator);
+  public TextInput(final int order, final AppCompatEditText view, final Validator<TextInput> validator) {
+    super(order, view, validator);
   }
 
   @Override
