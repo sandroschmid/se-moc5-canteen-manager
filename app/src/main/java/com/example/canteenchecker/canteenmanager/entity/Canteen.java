@@ -1,4 +1,4 @@
-package com.example.canteenchecker.canteenmanager.model;
+package com.example.canteenchecker.canteenmanager.entity;
 
 public class Canteen {
 
