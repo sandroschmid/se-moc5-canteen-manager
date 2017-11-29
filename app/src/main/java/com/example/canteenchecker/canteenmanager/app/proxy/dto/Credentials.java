@@ -1,4 +1,4 @@
-package com.example.canteenchecker.canteenmanager.proxy.dto;
+package com.example.canteenchecker.canteenmanager.app.proxy.dto;
 
 import android.os.Parcel;
 import android.os.Parcelable;

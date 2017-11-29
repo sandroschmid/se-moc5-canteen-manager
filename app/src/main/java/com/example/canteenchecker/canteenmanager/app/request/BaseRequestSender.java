@@ -1,4 +1,4 @@
-package com.example.canteenchecker.canteenmanager.request;
+package com.example.canteenchecker.canteenmanager.app.request;
 
 import android.content.Context;
 

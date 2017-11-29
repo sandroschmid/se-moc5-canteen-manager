@@ -1,6 +1,6 @@
-package com.example.canteenchecker.canteenmanager.proxy;
+package com.example.canteenchecker.canteenmanager.app.proxy;
 
-import com.example.canteenchecker.canteenmanager.proxy.dto.Credentials;
+import com.example.canteenchecker.canteenmanager.app.proxy.dto.Credentials;
 
 public class Backend {
 

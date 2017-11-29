@@ -3,10 +3,10 @@ package com.example.canteenchecker.canteenmanager.service;
 import android.content.Intent;
 import android.util.Log;
 
-import com.example.canteenchecker.canteenmanager.proxy.Backend;
-import com.example.canteenchecker.canteenmanager.proxy.BackendException;
-import com.example.canteenchecker.canteenmanager.proxy.dto.Credentials;
-import com.example.canteenchecker.canteenmanager.request.AuthenticateRequest;
+import com.example.canteenchecker.canteenmanager.app.proxy.Backend;
+import com.example.canteenchecker.canteenmanager.app.proxy.BackendException;
+import com.example.canteenchecker.canteenmanager.app.proxy.dto.Credentials;
+import com.example.canteenchecker.canteenmanager.app.request.AuthenticateRequest;
 
 /**
  * @author sschmid

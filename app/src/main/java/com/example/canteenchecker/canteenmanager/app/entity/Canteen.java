@@ -1,4 +1,4 @@
-package com.example.canteenchecker.canteenmanager.entity;
+package com.example.canteenchecker.canteenmanager.app.entity;
 
 public class Canteen {
 

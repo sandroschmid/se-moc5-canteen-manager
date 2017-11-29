@@ -8,9 +8,9 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 
 import com.example.canteenchecker.canteenmanager.R;
-import com.example.canteenchecker.canteenmanager.model.form.TextInput;
-import com.example.canteenchecker.canteenmanager.request.AuthenticateRequest;
-import com.example.canteenchecker.canteenmanager.request.BaseRequestSender;
+import com.example.canteenchecker.canteenmanager.app.form.TextInput;
+import com.example.canteenchecker.canteenmanager.app.request.AuthenticateRequest;
+import com.example.canteenchecker.canteenmanager.app.request.BaseRequestSender;
 
 /**
  * @author sschmid

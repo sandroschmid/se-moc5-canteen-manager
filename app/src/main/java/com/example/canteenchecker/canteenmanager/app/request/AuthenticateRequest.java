@@ -1,8 +1,8 @@
-package com.example.canteenchecker.canteenmanager.request;
+package com.example.canteenchecker.canteenmanager.app.request;
 
 import android.content.Intent;
 
-import com.example.canteenchecker.canteenmanager.proxy.dto.Credentials;
+import com.example.canteenchecker.canteenmanager.app.proxy.dto.Credentials;
 import com.example.canteenchecker.canteenmanager.service.AuthenticateService;
 
 /**

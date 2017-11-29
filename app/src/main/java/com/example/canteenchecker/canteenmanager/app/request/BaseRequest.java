@@ -1,4 +1,4 @@
-package com.example.canteenchecker.canteenmanager.request;
+package com.example.canteenchecker.canteenmanager.app.request;
 
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -7,7 +7,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.support.v4.content.LocalBroadcastManager;
 
-import com.example.canteenchecker.canteenmanager.proxy.dto.BaseDto;
+import com.example.canteenchecker.canteenmanager.app.proxy.dto.BaseDto;
 
 import java.util.UUID;
 

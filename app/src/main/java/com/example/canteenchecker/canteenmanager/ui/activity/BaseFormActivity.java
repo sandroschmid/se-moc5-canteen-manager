@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.canteenchecker.canteenmanager.R;
-import com.example.canteenchecker.canteenmanager.model.form.FormInput;
+import com.example.canteenchecker.canteenmanager.app.form.FormInput;
 
 import java.util.HashMap;
 import java.util.Map;

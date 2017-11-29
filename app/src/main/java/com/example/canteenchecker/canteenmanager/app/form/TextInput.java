@@ -1,4 +1,4 @@
-package com.example.canteenchecker.canteenmanager.model.form;
+package com.example.canteenchecker.canteenmanager.app.form;
 
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatEditText;

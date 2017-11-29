@@ -6,8 +6,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
-import com.example.canteenchecker.canteenmanager.proxy.BackendException;
-import com.example.canteenchecker.canteenmanager.request.BaseRequest;
+import com.example.canteenchecker.canteenmanager.app.proxy.BackendException;
+import com.example.canteenchecker.canteenmanager.app.request.BaseRequest;
 
 /**
  * @author sschmid
