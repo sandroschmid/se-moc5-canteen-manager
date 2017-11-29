@@ -22,9 +22,13 @@
       android:value="@string/google_maps_api_key" />
 
     <!-- region Activity -->
+
     <activity
       android:name=".ui.activity.LoginActivity"
-      android:label="@string/app_login_title">
+      android:label="@string/app_login_title"
+      android:noHistory="true" />
+
+    <activity android:name=".ui.activity.CanteenFormActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
         <category android:name="android.intent.category.LAUNCHER" />

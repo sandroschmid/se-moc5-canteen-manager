@@ -2,11 +2,17 @@
 
   <string name="app_name">Canteen-Manager</string>
 
+  <!-- Main Menu -->
+  <string name="menuSignOut">Sign out</string>
+
   <!-- Login -->
   <string name="app_login_title">Sign in</string>
   <string name="app_login_email_hint0">Email</string>
   <string name="app_login_password_hint">Password</string>
   <string name="app_login_sign_in">Sign in</string>
+
+  <!-- Canteen Form -->
+  <string name="app_canteen_name_hint">Name</string>
 
   <!-- Errors -->
   <string name="app_error_field_required">This field is required</string>

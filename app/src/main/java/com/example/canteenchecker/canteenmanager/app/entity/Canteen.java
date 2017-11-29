@@ -1,6 +1,6 @@
 package com.example.canteenchecker.canteenmanager.app.entity;
 
-public class Canteen {
+public final class Canteen {
 
   private final String id;
   private final String name;

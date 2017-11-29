@@ -1,6 +1,6 @@
 package com.example.canteenchecker.canteenmanager.app.entity;
 
-public class ReviewData {
+public final class ReviewData {
 
   private final float averageRating;
   private final int totalRatings;

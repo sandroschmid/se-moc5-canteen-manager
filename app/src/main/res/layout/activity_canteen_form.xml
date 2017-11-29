@@ -29,34 +29,13 @@
         android:layout_marginBottom="@dimen/app_gap_normal">
 
         <android.support.v7.widget.AppCompatEditText
-          android:id="@+id/etUsername"
+          android:id="@+id/etName"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:hint="@string/app_login_email_hint0"
-          android:inputType="textEmailAddress"
+          android:hint="@string/app_canteen_name_hint"
+          android:inputType="textCapCharacters"
           android:maxLines="1"
-          android:singleLine="true"
-          android:text="@string/default_user_name" />
-
-      </android.support.design.widget.TextInputLayout>
-
-      <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/app_gap_normal">
-
-        <android.support.v7.widget.AppCompatEditText
-          android:id="@+id/etPassword"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:hint="@string/app_login_password_hint"
-          android:imeActionId="6"
-          android:imeActionLabel="@string/app_login_sign_in"
-          android:imeOptions="actionUnspecified"
-          android:inputType="textPassword"
-          android:maxLines="1"
-          android:singleLine="true"
-          android:text="@string/default_password" />
+          android:singleLine="true" />
 
       </android.support.design.widget.TextInputLayout>
 

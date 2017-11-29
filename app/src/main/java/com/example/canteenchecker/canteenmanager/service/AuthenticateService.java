@@ -3,10 +3,12 @@ package com.example.canteenchecker.canteenmanager.service;
 import android.content.Intent;
 import android.util.Log;
 
+import com.example.canteenchecker.canteenmanager.App;
 import com.example.canteenchecker.canteenmanager.app.proxy.Backend;
 import com.example.canteenchecker.canteenmanager.app.proxy.BackendException;
 import com.example.canteenchecker.canteenmanager.app.proxy.dto.Credentials;
 import com.example.canteenchecker.canteenmanager.app.request.AuthenticateRequest;
+import com.example.canteenchecker.canteenmanager.event.BaseRequestResultEvent;
 
 /**
  * @author sschmid
@@ -29,12 +31,7 @@ public final class AuthenticateService extends BaseBackendService<String> {
   }
 
   @Override
-  String getIntentAction() {
-    return AuthenticateRequest.INTENT_ACTION;
-  }
-
-  @Override
-  void onSuccess(final Intent intent, final String authToken) {
-    intent.putExtra(AuthenticateRequest.KEY_DTO, authToken);
+  BaseRequestResultEvent<String> getEvent() {
+    return App.getInstance().getEventManager().getAuthenticatedEvent();
   }
 }

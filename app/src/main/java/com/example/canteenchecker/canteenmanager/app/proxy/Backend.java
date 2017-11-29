@@ -2,7 +2,7 @@ package com.example.canteenchecker.canteenmanager.app.proxy;
 
 import com.example.canteenchecker.canteenmanager.app.proxy.dto.Credentials;
 
-public class Backend {
+public final class Backend {
 
   private static Backend instance;
 

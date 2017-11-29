@@ -11,7 +11,7 @@ import java.net.URLConnection;
 /**
  * @author sschmid
  */
-public class HttpRequest {
+public final class HttpRequest {
 
   // ADMIN --> https://canteencheckeradmin.azurewebsites.net/
   // Test users: P20798/P20798#! S23423432/S23423432
