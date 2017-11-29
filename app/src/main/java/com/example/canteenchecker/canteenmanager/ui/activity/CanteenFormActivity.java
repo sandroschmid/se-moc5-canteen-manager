@@ -30,7 +30,7 @@ public final class CanteenFormActivity extends BaseFormActivity {
   @Override
   public boolean onOptionsItemSelected(final MenuItem item) {
     switch (item.getItemId()) {
-      case R.id.menuLogout:
+      case R.id.menuSignOut:
         App.getInstance().getSecurityManager().signOut();
         return true;
 
