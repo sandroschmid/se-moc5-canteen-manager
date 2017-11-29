@@ -5,7 +5,7 @@
   <item
     android:id="@+id/menuSignOut"
     android:icon="@mipmap/ic_lock"
-    android:title="@string/menuSignOut"
+    android:title="@string/menu_sign_out"
     app:showAsAction="ifRoom" />
 
 </menu>

@@ -39,9 +39,13 @@ public abstract class BaseEvent<TData> extends BroadcastReceiver {
 
   @Override
   public void onReceive(final Context context, final Intent intent) {
+    if (receivers.isEmpty()) {
+      return;
+    }
+
     final TData result = getResult(intent);
-    for (EventReceiver<TData> receiver: receivers) {
-     receiver.onNewEvent(result);
+    for (final EventReceiver<TData> receiver : receivers) {
+      receiver.onNewEvent(result);
     }
   }
 

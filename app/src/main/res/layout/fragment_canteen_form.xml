@@ -2,10 +2,6 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:layout_marginBottom="@dimen/activity_vertical_margin"
-  android:layout_marginEnd="@dimen/activity_horizontal_margin"
-  android:layout_marginStart="@dimen/activity_horizontal_margin"
-  android:layout_marginTop="@dimen/activity_vertical_margin"
   android:gravity="center_horizontal"
   android:orientation="vertical"
   tools:context=".ui.activity.LoginActivity">
@@ -32,8 +28,88 @@
           android:id="@+id/etName"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:hint="@string/app_canteen_name_hint"
+          android:hint="@string/app_canteen_hint_name"
           android:inputType="textCapCharacters"
+          android:maxLines="1"
+          android:singleLine="true" />
+
+      </android.support.design.widget.TextInputLayout>
+
+      <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/app_gap_normal">
+
+        <android.support.v7.widget.AppCompatEditText
+          android:id="@+id/etMeal"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:hint="@string/app_canteen_hint_meal"
+          android:inputType="textCapCharacters"
+          android:maxLines="1"
+          android:singleLine="true" />
+
+      </android.support.design.widget.TextInputLayout>
+
+      <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/app_gap_normal">
+
+        <android.support.v7.widget.AppCompatEditText
+          android:id="@+id/etMealPrice"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:hint="@string/app_canteen_hint_meal_price"
+          android:inputType="textCapCharacters"
+          android:maxLines="1"
+          android:singleLine="true" />
+
+      </android.support.design.widget.TextInputLayout>
+
+      <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/app_gap_normal">
+
+        <android.support.v7.widget.AppCompatEditText
+          android:id="@+id/etAddress"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:hint="@string/app_canteen_hint_address"
+          android:inputType="textCapCharacters"
+          android:maxLines="1"
+          android:singleLine="true" />
+
+      </android.support.design.widget.TextInputLayout>
+
+      <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/app_gap_normal">
+
+        <android.support.v7.widget.AppCompatEditText
+          android:id="@+id/etWebsite"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:hint="@string/app_canteen_hint_website"
+          android:inputType="textWebEditText"
+          android:maxLines="1"
+          android:singleLine="true" />
+
+      </android.support.design.widget.TextInputLayout>
+
+      <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/app_gap_normal">
+
+        <android.support.v7.widget.AppCompatEditText
+          android:id="@+id/etPhone"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:hint="@string/app_canteen_hint_phone"
+          android:inputType="phone"
           android:maxLines="1"
           android:singleLine="true" />
 
@@ -47,7 +123,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end"
         android:src="@mipmap/ic_done"
-        android:tooltipText="@string/app_login_sign_in"
+        android:tooltipText="@string/app_btn_save"
         tools:targetApi="o" />
 
     </LinearLayout>

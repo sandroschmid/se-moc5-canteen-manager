@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 
 import com.example.canteenchecker.canteenmanager.App;
+import com.example.canteenchecker.canteenmanager.app.proxy.NotAuthenticatedException;
 import com.example.canteenchecker.canteenmanager.event.EventReceiver;
 
 /**
@@ -31,6 +32,15 @@ public final class SecurityManager {
 
   public boolean isAuthenticated() {
     return sharedPreferences.contains(PREF_AUTH_TOKEN);
+  }
+
+  public String getAuthToken() throws NotAuthenticatedException {
+    final String authToken = sharedPreferences.getString(PREF_AUTH_TOKEN, null);
+    if (authToken == null) {
+      throw new NotAuthenticatedException();
+    }
+
+    return authToken;
   }
 
   @SuppressLint("ApplySharedPref")

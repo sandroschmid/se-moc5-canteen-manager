@@ -3,18 +3,27 @@
   <string name="app_name">Canteen-Manager</string>
 
   <!-- Main Menu -->
-  <string name="menuSignOut">Sign out</string>
+  <string name="menu_sign_out">Sign out</string>
+
+  <!-- Common -->
+  <string name="app_btn_save">Save</string>
 
   <!-- Login -->
   <string name="app_login_title">Sign in</string>
-  <string name="app_login_user_name_hint">User name</string>
-  <string name="app_login_password_hint">Password</string>
-  <string name="app_login_sign_in">Sign in</string>
+  <string name="app_login_hint_user_name">User name</string>
+  <string name="app_login_hint_password">Password</string>
+  <string name="app_login_btn_sign_in">Sign in</string>
 
   <!-- Canteen Form -->
-  <string name="app_canteen_name_hint">Name</string>
+  <string name="app_canteen_hint_name">Name</string>
+  <string name="app_canteen_hint_meal">Meal</string>
+  <string name="app_canteen_hint_meal_price">Meal price</string>
+  <string name="app_canteen_hint_address">Address</string>
+  <string name="app_canteen_hint_website">Website</string>
+  <string name="app_canteen_hint_phone">Phone</string>
 
   <!-- Errors -->
   <string name="app_error_field_required">This field is required</string>
+  <string name="app_error_load_failure_admin_canteen">Could not load canteen</string>
 
 </resources>

@@ -17,13 +17,23 @@ public abstract class BaseActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(getLayout());
 
+    App.getInstance().getAuthenticationGuard().canVisit(getClass().getName());
+
+    setContentView(getLayout());
     initView();
     if (savedInstanceState != null) {
       restoreSavedState(savedInstanceState);
     }
 
+    initEventReceivers();
+  }
+
+  protected abstract int getLayout();
+
+  protected abstract void initView();
+
+  protected void initEventReceivers() {
     signedOutEventReceiver = new EventReceiver<Void>() {
       @Override
       public void onNewEvent(final Void result) {
@@ -33,16 +43,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     App.getInstance().getEventManager().getSignedOutEvent().register(signedOutEventReceiver);
   }
-
-  @Override
-  protected void onResume() {
-    super.onResume();
-    App.getInstance().getAuthenticationGuard().canVisit(getClass().getName());
-  }
-
-  protected abstract int getLayout();
-
-  protected abstract void initView();
 
   protected abstract void restoreSavedState(final Bundle savedInstanceState);
 

@@ -1,7 +1,6 @@
 package com.example.canteenchecker.canteenmanager.service;
 
 import android.content.Intent;
-import android.util.Log;
 
 import com.example.canteenchecker.canteenmanager.App;
 import com.example.canteenchecker.canteenmanager.app.proxy.Backend;
@@ -24,9 +23,6 @@ public final class AuthenticateService extends BaseBackendService<String> {
   @Override
   String executeRequest(final Intent intent) throws BackendException {
     final Credentials credentials = intent.getParcelableExtra(AuthenticateRequest.KEY_DTO);
-
-    Log.d(TAG, String.format("Authenticate using %s", credentials));
-
     return Backend.getInstance().authenticate(credentials);
   }
 

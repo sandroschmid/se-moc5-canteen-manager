@@ -26,12 +26,17 @@ public abstract class BaseFragment extends Fragment {
       restoreSavedState(savedInstanceState);
     }
 
+    initEventReceivers();
     return view;
   }
 
   protected abstract int getLayout();
 
   protected abstract void initView(View view);
+
+  protected void initEventReceivers() {
+    // dummy
+  }
 
   protected abstract void restoreSavedState(final Bundle savedInstanceState);
 }

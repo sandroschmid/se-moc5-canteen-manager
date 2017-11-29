@@ -55,6 +55,10 @@ public final class LoadingViewHandler {
 
   @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
   private void showProgress(final boolean isShowing) {
+    if (isLoading == isShowing) {
+      return;
+    }
+
     isLoading = isShowing;
     // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
     // for very easy animations. If available, use these APIs to fade-in

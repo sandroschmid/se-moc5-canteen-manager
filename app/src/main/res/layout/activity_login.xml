@@ -32,7 +32,7 @@
           android:id="@+id/etUsername"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:hint="@string/app_login_user_name_hint"
+          android:hint="@string/app_login_hint_user_name"
           android:inputType="textEmailAddress"
           android:maxLines="1"
           android:singleLine="true"
@@ -49,9 +49,9 @@
           android:id="@+id/etPassword"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:hint="@string/app_login_password_hint"
+          android:hint="@string/app_login_hint_password"
           android:imeActionId="6"
-          android:imeActionLabel="@string/app_login_sign_in"
+          android:imeActionLabel="@string/app_login_btn_sign_in"
           android:imeOptions="actionUnspecified"
           android:inputType="textPassword"
           android:maxLines="1"
@@ -68,7 +68,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end"
         android:src="@mipmap/ic_done"
-        android:tooltipText="@string/app_login_sign_in"
+        android:tooltipText="@string/app_login_btn_sign_in"
         tools:targetApi="o" />
 
     </LinearLayout>

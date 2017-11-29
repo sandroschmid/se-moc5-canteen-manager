@@ -1,25 +1,38 @@
 package com.example.canteenchecker.canteenmanager.ui.activity;
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.canteenchecker.canteenmanager.App;
 import com.example.canteenchecker.canteenmanager.R;
+import com.example.canteenchecker.canteenmanager.ui.fragment.CanteenFormFragment;
+import com.example.canteenchecker.canteenmanager.ui.fragment.ReviewsListFragment;
 
 /**
  * @author sschmid
  */
-public final class CanteenFormActivity extends BaseActivity {
+public final class CanteenFormActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener {
+
+  private SwipeRefreshLayout swipeRefreshLayout;
+  private CanteenFormFragment canteenFormFragment;
+  private ReviewsListFragment reviewsListFragment;
 
   @Override
   protected int getLayout() {
-    return R.layout.fragment_canteen_form;
+    return R.layout.activity_canteen_form;
   }
 
   @Override
   protected void initView() {
-    // nothing to do
+    swipeRefreshLayout = findViewById(R.id.swipeRefresh);
+    swipeRefreshLayout.setOnRefreshListener(this);
+
+    final FragmentManager fragmentManager = getSupportFragmentManager();
+    canteenFormFragment = (CanteenFormFragment) fragmentManager.findFragmentById(R.id.fragCanteenForm);
+    reviewsListFragment = (ReviewsListFragment) fragmentManager.findFragmentById(R.id.fragReviewList);
   }
 
   @Override
@@ -42,6 +55,15 @@ public final class CanteenFormActivity extends BaseActivity {
 
       default:
         return super.onOptionsItemSelected(item);
+    }
+  }
+
+  @Override
+  public void onRefresh() {
+    swipeRefreshLayout.setRefreshing(false);
+    canteenFormFragment.onRefresh();
+    if (reviewsListFragment != null) {
+      reviewsListFragment.onRefresh();
     }
   }
 }

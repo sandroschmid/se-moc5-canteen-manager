@@ -11,7 +11,7 @@ import com.example.canteenchecker.canteenmanager.service.AuthenticateService;
 public final class AuthenticateRequest extends BaseRequest<AuthenticateService> {
 
   public AuthenticateRequest(final Context context, final String userName, final String password) {
-    super(context, new Credentials(userName, password));
+    super(context, Method.POST, new Credentials(userName, password));
   }
 
   @Override

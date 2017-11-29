@@ -1,9 +1,7 @@
 package com.example.canteenchecker.canteenmanager.ui.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.AppCompatEditText;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
@@ -30,26 +28,6 @@ public final class LoginActivity extends BaseFormActivity {
   }
 
   @Override
-  protected void onCreate(final Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-
-    authEventReceiver = new EventReceiver<BaseRequestResultEvent.RequestResult<String>>() {
-      @Override
-      public void onNewEvent(final BaseRequestResultEvent.RequestResult<String> authResult) {
-        if (authResult.isSuccessful()) {
-          App.getInstance().getSecurityManager().onAuthenticated(authResult.getData());
-          startActivity(new Intent(LoginActivity.this, App.HOME_ACTIVITY));
-        } else {
-          Log.e(TAG, "Auth failed");
-          stopLoading();
-        }
-      }
-    };
-
-    App.getInstance().getEventManager().getAuthenticatedEvent().register(authEventReceiver);
-  }
-
-  @Override
   protected void initView() {
     super.initView();
 
@@ -69,6 +47,24 @@ public final class LoginActivity extends BaseFormActivity {
     });
 
     addInput(TextInput.createRequiredTextInput(order, etPassword));
+  }
+
+  @Override
+  protected void initEventReceivers() {
+    super.initEventReceivers();
+    authEventReceiver = new EventReceiver<BaseRequestResultEvent.RequestResult<String>>() {
+      @Override
+      public void onNewEvent(final BaseRequestResultEvent.RequestResult<String> authResult) {
+        if (authResult.isSuccessful()) {
+          App.getInstance().getSecurityManager().onAuthenticated(authResult.getData());
+          startActivity(new Intent(LoginActivity.this, App.HOME_ACTIVITY));
+        } else {
+          stopLoading();
+        }
+      }
+    };
+
+    App.getInstance().getEventManager().getAuthenticatedEvent().register(authEventReceiver);
   }
 
   @Override

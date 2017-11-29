@@ -10,8 +10,7 @@ import com.example.canteenchecker.canteenmanager.ui.utility.LoadingViewHandler;
  */
 public abstract class BaseLoadingActivity extends BaseActivity implements LoadingViewHandler.LoadingView {
 
-  private final LoadingViewHandler loadingViewHandler = new LoadingViewHandler(this, this);
-
+  private LoadingViewHandler loadingViewHandler;
   private View vProgress;
   private View vContent;
 
@@ -44,6 +43,8 @@ public abstract class BaseLoadingActivity extends BaseActivity implements Loadin
   protected void initView() {
     vProgress = findViewById(R.id.vProgress);
     vContent = findViewById(R.id.vContent);
+
+    loadingViewHandler = new LoadingViewHandler(this, this);
     loadingViewHandler.initView();
   }
 }

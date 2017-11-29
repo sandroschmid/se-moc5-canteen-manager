@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.example.canteenchecker.canteenmanager.App;
 import com.example.canteenchecker.canteenmanager.app.proxy.BackendException;
+import com.example.canteenchecker.canteenmanager.app.proxy.NotAuthenticatedException;
 import com.example.canteenchecker.canteenmanager.event.BaseRequestResultEvent;
 
 /**
@@ -28,8 +30,8 @@ public abstract class BaseBackendService<TResult> extends IntentService {
     TResult responseData = null;
     try {
       responseData = executeRequest(intent);
-    } catch (BackendException e) {
-      Log.d(TAG, "Could not execute backend-request", e);
+    } catch (NotAuthenticatedException | BackendException e) {
+      Log.e(TAG, "Could not execute backend-request", e);
     }
 
     final BaseRequestResultEvent.RequestResult<TResult> result = new BaseRequestResultEvent.RequestResult<>(
@@ -40,7 +42,11 @@ public abstract class BaseBackendService<TResult> extends IntentService {
     getEvent().send(result);
   }
 
-  abstract TResult executeRequest(final Intent intent) throws BackendException;
+  String getAuthToken() throws NotAuthenticatedException {
+    return App.getInstance().getSecurityManager().getAuthToken();
+  }
+
+  abstract TResult executeRequest(final Intent intent) throws BackendException, NotAuthenticatedException;
 
   abstract BaseRequestResultEvent<TResult> getEvent();
 }
