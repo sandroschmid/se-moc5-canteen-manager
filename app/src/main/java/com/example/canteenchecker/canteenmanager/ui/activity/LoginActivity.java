@@ -8,10 +8,10 @@ import android.widget.TextView;
 
 import com.example.canteenchecker.canteenmanager.App;
 import com.example.canteenchecker.canteenmanager.R;
+import com.example.canteenchecker.canteenmanager.app.event.BaseRequestResultEvent;
+import com.example.canteenchecker.canteenmanager.app.event.EventReceiver;
 import com.example.canteenchecker.canteenmanager.app.form.TextInput;
 import com.example.canteenchecker.canteenmanager.app.request.AuthenticateRequest;
-import com.example.canteenchecker.canteenmanager.event.BaseRequestResultEvent;
-import com.example.canteenchecker.canteenmanager.event.EventReceiver;
 
 /**
  * @author sschmid
@@ -65,6 +65,11 @@ public final class LoginActivity extends BaseFormActivity {
     };
 
     App.getInstance().getEventManager().getAuthenticatedEvent().register(authEventReceiver);
+  }
+
+  @Override
+  public void onRefresh() {
+    // nothing to do
   }
 
   @Override

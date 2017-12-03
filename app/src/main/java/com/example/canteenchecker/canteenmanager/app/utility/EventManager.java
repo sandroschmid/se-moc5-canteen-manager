@@ -2,9 +2,10 @@ package com.example.canteenchecker.canteenmanager.app.utility;
 
 import android.content.Context;
 
-import com.example.canteenchecker.canteenmanager.event.AdminCanteenReceivedEvent;
-import com.example.canteenchecker.canteenmanager.event.AuthenticatedEvent;
-import com.example.canteenchecker.canteenmanager.event.SignedOutEvent;
+import com.example.canteenchecker.canteenmanager.app.event.AdminCanteenReceivedEvent;
+import com.example.canteenchecker.canteenmanager.app.event.AuthenticatedEvent;
+import com.example.canteenchecker.canteenmanager.app.event.CoordinatesReceivedEvent;
+import com.example.canteenchecker.canteenmanager.app.event.SignedOutEvent;
 
 /**
  * @author sschmid
@@ -14,11 +15,13 @@ public final class EventManager {
   private final AuthenticatedEvent authenticatedEvent;
   private final SignedOutEvent signedOutEvent;
   private final AdminCanteenReceivedEvent adminCanteenReceivedEvent;
+  private final CoordinatesReceivedEvent coordinatesReceivedEvent;
 
   public EventManager(final Context context) {
     authenticatedEvent = new AuthenticatedEvent(context);
     signedOutEvent = new SignedOutEvent(context);
     adminCanteenReceivedEvent = new AdminCanteenReceivedEvent(context);
+    coordinatesReceivedEvent = new CoordinatesReceivedEvent(context);
   }
 
   public AuthenticatedEvent getAuthenticatedEvent() {
@@ -31,5 +34,9 @@ public final class EventManager {
 
   public AdminCanteenReceivedEvent getAdminCanteenReceivedEvent() {
     return adminCanteenReceivedEvent;
+  }
+
+  public CoordinatesReceivedEvent getCoordinatesReceivedEvent() {
+    return coordinatesReceivedEvent;
   }
 }

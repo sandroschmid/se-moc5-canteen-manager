@@ -1,8 +1,8 @@
-package com.example.canteenchecker.canteenmanager.app.proxy;
+package com.example.canteenchecker.canteenmanager.app.backend;
 
+import com.example.canteenchecker.canteenmanager.app.dto.CanteenDto;
+import com.example.canteenchecker.canteenmanager.app.dto.CredentialsDto;
 import com.example.canteenchecker.canteenmanager.app.entity.Canteen;
-import com.example.canteenchecker.canteenmanager.app.proxy.dto.CanteenDto;
-import com.example.canteenchecker.canteenmanager.app.proxy.dto.Credentials;
 
 public final class Backend {
 
@@ -21,8 +21,8 @@ public final class Backend {
   private Backend() {
   }
 
-  public String authenticate(final Credentials credentials) throws BackendException {
-    return http.post("/Admin/Login", null, credentials, String.class);
+  public String authenticate(final CredentialsDto credentialsDto) throws BackendException {
+    return http.post("/Admin/Login", null, credentialsDto, String.class);
   }
 
   public Canteen getAdminCanteen(final String authToken) throws BackendException {

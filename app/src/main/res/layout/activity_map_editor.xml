@@ -1,0 +1,39 @@
+<android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:gravity="center_horizontal"
+  android:orientation="vertical"
+  tools:context=".ui.activity.MapEditorActivity">
+
+  <include
+    layout="@layout/helper_content_loader"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/activity_vertical_margin"
+    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+    android:layout_marginRight="@dimen/activity_horizontal_margin"
+    android:layout_marginTop="@dimen/activity_vertical_margin" />
+
+  <RelativeLayout
+    android:id="@+id/vContent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <fragment
+      android:id="@+id/fragMap"
+      class="com.google.android.gms.maps.SupportMapFragment"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent" />
+
+    <android.support.v7.widget.AppCompatTextView
+      android:id="@+id/txtLocation"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_alignParentTop="true"
+      android:alpha="0.75"
+      android:background="@color/appColorBlack"
+      android:padding="@dimen/app_gap_normal"
+      android:textColor="@color/appColorWhite" />
+  </RelativeLayout>
+</android.support.v7.widget.LinearLayoutCompat>

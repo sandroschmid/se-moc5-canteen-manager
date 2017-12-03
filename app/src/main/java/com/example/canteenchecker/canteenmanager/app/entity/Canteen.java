@@ -3,7 +3,7 @@ package com.example.canteenchecker.canteenmanager.app.entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.example.canteenchecker.canteenmanager.app.proxy.dto.BaseDto;
+import com.example.canteenchecker.canteenmanager.app.dto.BaseDto;
 
 public final class Canteen extends BaseDto {
 

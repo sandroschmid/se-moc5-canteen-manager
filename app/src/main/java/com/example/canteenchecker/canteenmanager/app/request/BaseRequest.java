@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 
-import com.example.canteenchecker.canteenmanager.app.proxy.dto.BaseDto;
+import com.example.canteenchecker.canteenmanager.app.dto.BaseDto;
 
 /**
  * @author sschmid

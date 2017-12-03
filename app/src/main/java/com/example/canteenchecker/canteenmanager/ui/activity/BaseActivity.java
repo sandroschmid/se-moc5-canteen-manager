@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.canteenchecker.canteenmanager.App;
-import com.example.canteenchecker.canteenmanager.event.EventReceiver;
+import com.example.canteenchecker.canteenmanager.app.event.EventReceiver;
 
 /**
  * @author sschmid

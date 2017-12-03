@@ -82,21 +82,35 @@
           android:text="@string/app_common_currency_euro" />
       </android.support.v7.widget.LinearLayoutCompat>
 
-      <android.support.design.widget.TextInputLayout
+      <android.support.v7.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/app_gap_normal">
+        android:layout_marginBottom="@dimen/app_gap_normal"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
-        <android.support.v7.widget.AppCompatEditText
-          android:id="@+id/etAddress"
-          android:layout_width="match_parent"
+        <android.support.design.widget.TextInputLayout
+          android:layout_width="0dp"
           android:layout_height="wrap_content"
-          android:hint="@string/app_canteen_hint_address"
-          android:inputType="textCapCharacters"
-          android:maxLines="1"
-          android:singleLine="true" />
+          android:layout_weight="1">
 
-      </android.support.design.widget.TextInputLayout>
+          <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/etAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/app_canteen_hint_address"
+            android:inputType="textCapCharacters"
+            android:maxLines="1"
+            android:singleLine="true" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.v7.widget.AppCompatImageButton
+          android:id="@+id/btnMap"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:src="@mipmap/ic_map_black" />
+      </android.support.v7.widget.LinearLayoutCompat>
 
       <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
@@ -133,15 +147,15 @@
       <android.support.v7.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_marginBottom="@dimen/app_gap_normal"
-        android:layout_marginTop="@dimen/app_gap_normal">
+        android:layout_marginTop="@dimen/app_gap_normal"
+        android:orientation="vertical">
 
         <android.support.v7.widget.AppCompatTextView
-          android:layout_width="match_parent"
           android:id="@+id/tvAverageWaitingTime"
-          android:layout_marginBottom="@dimen/app_gap_normal"
-          android:layout_height="wrap_content" />
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="@dimen/app_gap_normal" />
 
         <android.support.v7.widget.AppCompatSeekBar
           android:id="@+id/sbAverageWaitingTime"

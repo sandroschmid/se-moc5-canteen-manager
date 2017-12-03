@@ -1,4 +1,4 @@
-package com.example.canteenchecker.canteenmanager.app.proxy.dto;
+package com.example.canteenchecker.canteenmanager.app.dto;
 
 import com.example.canteenchecker.canteenmanager.app.entity.Canteen;
 import com.fasterxml.jackson.annotation.JsonProperty;

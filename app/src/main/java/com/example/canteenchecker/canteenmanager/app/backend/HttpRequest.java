@@ -1,4 +1,4 @@
-package com.example.canteenchecker.canteenmanager.app.proxy;
+package com.example.canteenchecker.canteenmanager.app.backend;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 

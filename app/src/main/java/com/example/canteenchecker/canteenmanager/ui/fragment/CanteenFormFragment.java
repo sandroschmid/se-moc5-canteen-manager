@@ -11,12 +11,14 @@ import android.widget.Toast;
 import com.example.canteenchecker.canteenmanager.App;
 import com.example.canteenchecker.canteenmanager.R;
 import com.example.canteenchecker.canteenmanager.app.entity.Canteen;
+import com.example.canteenchecker.canteenmanager.app.event.AdminCanteenReceivedEvent;
+import com.example.canteenchecker.canteenmanager.app.event.BaseRequestResultEvent;
+import com.example.canteenchecker.canteenmanager.app.event.EventReceiver;
 import com.example.canteenchecker.canteenmanager.app.form.SeekBarInput;
 import com.example.canteenchecker.canteenmanager.app.form.TextInput;
 import com.example.canteenchecker.canteenmanager.app.request.GetAdminCanteenRequest;
 import com.example.canteenchecker.canteenmanager.app.request.PutAdminCanteenRequest;
-import com.example.canteenchecker.canteenmanager.event.BaseRequestResultEvent;
-import com.example.canteenchecker.canteenmanager.event.EventReceiver;
+import com.example.canteenchecker.canteenmanager.ui.activity.MapEditorActivity;
 
 import java.text.NumberFormat;
 
@@ -27,8 +29,11 @@ public final class CanteenFormFragment extends BaseFormFragment implements Swipe
 
   private static final NumberFormat priceFormat = NumberFormat.getNumberInstance();
 
-  private EventReceiver<BaseRequestResultEvent.RequestResult<Canteen>> adminCanteenEventReceiver;
+  private final AdminCanteenReceivedEvent adminCanteenReceivedEvent = App.getInstance()
+      .getEventManager()
+      .getAdminCanteenReceivedEvent();
 
+  private EventReceiver<BaseRequestResultEvent.RequestResult<Canteen>> adminCanteenEventReceiver;
   private Canteen canteen;
 
   @Override
@@ -50,12 +55,6 @@ public final class CanteenFormFragment extends BaseFormFragment implements Swipe
   }
 
   @Override
-  public void onDestroy() {
-    super.onDestroy();
-    App.getInstance().getEventManager().getAdminCanteenReceivedEvent().unregister(adminCanteenEventReceiver);
-  }
-
-  @Override
   public void onRefresh() {
     startLoading();
     new GetAdminCanteenRequest(getContext()).send();
@@ -66,11 +65,21 @@ public final class CanteenFormFragment extends BaseFormFragment implements Swipe
     super.initView(view);
 
     int order = 0;
-    addInput(TextInput.createRequiredTextInput(++order, (AppCompatEditText) view.findViewById(R.id.etName)));
+    addInput(TextInput.createRequiredTextInput(
+        ++order,
+        (AppCompatEditText) view.findViewById(R.id.etName)
+    ));
     addInput(new TextInput(++order, (AppCompatEditText) view.findViewById(R.id.etMeal)));
     addInput(new TextInput(++order, (AppCompatEditText) view.findViewById(R.id.etMealPrice)));
     addInput(new TextInput(++order, (AppCompatEditText) view.findViewById(R.id.etAddress)));
     addInput(new TextInput(++order, (AppCompatEditText) view.findViewById(R.id.etWebsite)));
+    view.findViewById(R.id.btnMap).setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(final View v) {
+        showMap();
+      }
+    });
+
     addInput(new TextInput(++order, (AppCompatEditText) view.findViewById(R.id.etPhone)));
 
     final AppCompatTextView tvAvgWaitingTime = view.findViewById(R.id.tvAverageWaitingTime);
@@ -79,7 +88,9 @@ public final class CanteenFormFragment extends BaseFormFragment implements Swipe
     sbAvgWaitingTime.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
       @Override
-      public void onProgressChanged(final SeekBar seekBar, final int progress, final boolean fromUser) {
+      public void onProgressChanged(final SeekBar seekBar,
+                                    final int progress,
+                                    final boolean fromUser) {
         tvAvgWaitingTime.setText(getResources().getQuantityString(
             R.plurals.app_canteen_label_avg_waiting_time,
             progress,
@@ -111,12 +122,22 @@ public final class CanteenFormFragment extends BaseFormFragment implements Swipe
         if (result.isSuccessful()) {
           showData(result.getData());
         } else {
-          Toast.makeText(getContext(), R.string.app_error_load_failure_admin_canteen, Toast.LENGTH_SHORT).show();
+          Toast.makeText(
+              getContext(),
+              R.string.app_error_load_failure_admin_canteen,
+              Toast.LENGTH_SHORT
+          ).show();
         }
       }
     };
 
-    App.getInstance().getEventManager().getAdminCanteenReceivedEvent().register(adminCanteenEventReceiver);
+    adminCanteenReceivedEvent.register(adminCanteenEventReceiver);
+  }
+
+  @Override
+  public void onDestroy() {
+    super.onDestroy();
+    adminCanteenReceivedEvent.unregister(adminCanteenEventReceiver);
   }
 
   private void showData(final Canteen data) {
@@ -128,5 +149,9 @@ public final class CanteenFormFragment extends BaseFormFragment implements Swipe
     this.<TextInput>getInput(R.id.etWebsite).setValue(data.getWebsite());
     this.<TextInput>getInput(R.id.etPhone).setValue(data.getPhoneNumber());
     this.<SeekBarInput>getInput(R.id.sbAverageWaitingTime).setValue(data.getAverageWaitingTime());
+  }
+
+  private void showMap() {
+    MapEditorActivity.show(getContext(), canteen.getAddress());
   }
 }

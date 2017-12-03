@@ -1,4 +1,4 @@
-package com.example.canteenchecker.canteenmanager.event;
+package com.example.canteenchecker.canteenmanager.app.event;
 
 import android.content.Context;
 import android.content.Intent;

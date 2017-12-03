@@ -3,13 +3,13 @@ package com.example.canteenchecker.canteenmanager.service;
 import android.content.Intent;
 
 import com.example.canteenchecker.canteenmanager.App;
+import com.example.canteenchecker.canteenmanager.app.backend.Backend;
+import com.example.canteenchecker.canteenmanager.app.backend.BackendException;
+import com.example.canteenchecker.canteenmanager.app.backend.NotAuthenticatedException;
 import com.example.canteenchecker.canteenmanager.app.entity.Canteen;
-import com.example.canteenchecker.canteenmanager.app.proxy.Backend;
-import com.example.canteenchecker.canteenmanager.app.proxy.BackendException;
-import com.example.canteenchecker.canteenmanager.app.proxy.NotAuthenticatedException;
+import com.example.canteenchecker.canteenmanager.app.event.BaseRequestResultEvent;
 import com.example.canteenchecker.canteenmanager.app.request.BaseRequest;
 import com.example.canteenchecker.canteenmanager.app.request.PutAdminCanteenRequest;
-import com.example.canteenchecker.canteenmanager.event.BaseRequestResultEvent;
 
 /**
  * @author sschmid

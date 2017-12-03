@@ -1,4 +1,4 @@
-package com.example.canteenchecker.canteenmanager.app.proxy.dto;
+package com.example.canteenchecker.canteenmanager.app.dto;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -8,15 +8,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * @author sschmid
  */
-public final class Credentials extends BaseDto {
+public final class CredentialsDto extends BaseDto {
 
-  public static final Parcelable.Creator<Credentials> CREATOR = new Parcelable.Creator<Credentials>() {
-    public Credentials createFromParcel(Parcel in) {
-      return new Credentials(in);
+  public static final Parcelable.Creator<CredentialsDto> CREATOR = new Parcelable.Creator<CredentialsDto>() {
+    public CredentialsDto createFromParcel(Parcel in) {
+      return new CredentialsDto(in);
     }
 
-    public Credentials[] newArray(int size) {
-      return new Credentials[size];
+    public CredentialsDto[] newArray(int size) {
+      return new CredentialsDto[size];
     }
   };
 
@@ -26,12 +26,12 @@ public final class Credentials extends BaseDto {
   @JsonProperty("password")
   private final String password;
 
-  public Credentials(final String userName, final String password) {
+  public CredentialsDto(final String userName, final String password) {
     this.userName = userName;
     this.password = password;
   }
 
-  public Credentials(final Parcel parcel) {
+  public CredentialsDto(final Parcel parcel) {
     this.userName = parcel.readString();
     this.password = parcel.readString();
   }
