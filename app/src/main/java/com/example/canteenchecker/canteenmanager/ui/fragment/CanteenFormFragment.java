@@ -1,5 +1,7 @@
 package com.example.canteenchecker.canteenmanager.ui.fragment;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatSeekBar;
@@ -18,6 +20,7 @@ import com.example.canteenchecker.canteenmanager.app.form.SeekBarInput;
 import com.example.canteenchecker.canteenmanager.app.form.TextInput;
 import com.example.canteenchecker.canteenmanager.app.request.GetAdminCanteenRequest;
 import com.example.canteenchecker.canteenmanager.app.request.PutAdminCanteenRequest;
+import com.example.canteenchecker.canteenmanager.ui.activity.CanteenFormActivity;
 import com.example.canteenchecker.canteenmanager.ui.activity.MapEditorActivity;
 
 import java.text.NumberFormat;
@@ -35,6 +38,12 @@ public final class CanteenFormFragment extends BaseFormFragment implements Swipe
 
   private EventReceiver<BaseRequestResultEvent.RequestResult<Canteen>> adminCanteenEventReceiver;
   private Canteen canteen;
+
+  @Override
+  public void setArguments(@Nullable final Bundle args) {
+    super.setArguments(args);
+    canteen = CanteenFormActivity.getCanteen(args);
+  }
 
   @Override
   public void submit() {
@@ -108,8 +117,16 @@ public final class CanteenFormFragment extends BaseFormFragment implements Swipe
         // ignore
       }
     });
+  }
 
-    onRefresh();
+  @Override
+  protected void setViewData() {
+    super.setViewData();
+    if (canteen == null) {
+      onRefresh();
+    } else {
+      showData(canteen);
+    }
   }
 
   @Override

@@ -1,5 +1,6 @@
 package com.example.canteenchecker.canteenmanager.ui.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.AppCompatEditText;
 import android.view.KeyEvent;
@@ -18,9 +19,11 @@ import com.example.canteenchecker.canteenmanager.app.request.AuthenticateRequest
  */
 public final class LoginActivity extends BaseFormActivity {
 
-  private EventReceiver<BaseRequestResultEvent.RequestResult<String>> authEventReceiver;
+  public static void show(final Context context) {
+    context.startActivity(new Intent(context, LoginActivity.class));
+  }
 
-  private static final String TAG = LoginActivity.class.getName();
+  private EventReceiver<BaseRequestResultEvent.RequestResult<String>> authEventReceiver;
 
   @Override
   protected int getLayout() {

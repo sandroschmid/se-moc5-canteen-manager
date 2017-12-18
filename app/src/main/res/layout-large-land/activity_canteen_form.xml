@@ -16,20 +16,26 @@
     android:paddingStart="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin">
 
-    <fragment
-      android:id="@+id/fragCanteenForm"
-      class="com.example.canteenchecker.canteenmanager.ui.fragment.CanteenFormFragment"
+    <android.support.v7.widget.LinearLayoutCompat
       android:layout_width="0dp"
       android:layout_height="match_parent"
       android:layout_marginEnd="@dimen/activity_horizontal_margin"
-      android:layout_weight="3" />
+      android:layout_weight="3">
+      <FrameLayout
+        android:id="@+id/fragCanteenForm"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    </android.support.v7.widget.LinearLayoutCompat>
 
-    <fragment
-      android:id="@+id/fragReviewList"
-      class="com.example.canteenchecker.canteenmanager.ui.fragment.ReviewsListFragment"
+    <android.support.v7.widget.LinearLayoutCompat
       android:layout_width="0dp"
       android:layout_height="match_parent"
-      android:layout_weight="2" />
+      android:layout_weight="2" >
+      <FrameLayout
+        android:id="@+id/fragReviewList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    </android.support.v7.widget.LinearLayoutCompat>
 
   </android.support.v7.widget.LinearLayoutCompat>
 

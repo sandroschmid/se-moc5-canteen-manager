@@ -27,12 +27,19 @@ public abstract class BaseFragment extends Fragment {
     }
 
     initEventReceivers();
+    setViewData();
     return view;
   }
 
   protected abstract int getLayout();
 
-  protected abstract void initView(View view);
+  protected void initView(View view){
+    // dummy
+  }
+
+  protected void setViewData() {
+    // dummy
+  }
 
   protected void initEventReceivers() {
     // dummy

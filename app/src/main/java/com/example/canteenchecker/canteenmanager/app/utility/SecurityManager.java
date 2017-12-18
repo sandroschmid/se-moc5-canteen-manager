@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import com.example.canteenchecker.canteenmanager.App;
 import com.example.canteenchecker.canteenmanager.app.backend.NotAuthenticatedException;
 import com.example.canteenchecker.canteenmanager.app.event.EventReceiver;
+import com.example.canteenchecker.canteenmanager.ui.activity.LoginActivity;
 
 /**
  * @author sschmid
@@ -26,6 +27,7 @@ public final class SecurityManager {
         sharedPreferences.edit()
             .remove(PREF_AUTH_TOKEN)
             .commit();
+        LoginActivity.show(app);
       }
     });
   }

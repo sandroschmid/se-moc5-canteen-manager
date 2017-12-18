@@ -1,0 +1,32 @@
+<android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="@color/appColorPrimary"
+  android:gravity="center"
+  android:orientation="vertical"
+  android:paddingBottom="@dimen/activity_vertical_margin"
+  android:paddingLeft="@dimen/activity_horizontal_margin"
+  android:paddingRight="@dimen/activity_horizontal_margin"
+  android:paddingTop="@dimen/activity_vertical_margin"
+  tools:context=".ui.activity.LoginActivity">
+
+  <!--<android.support.v4.widget.CircleImageView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginBottom="@dimen/app_gap_xlarge"-->
+    <!--android:src="@mipmap/ic_launcher_round" />-->
+
+  <include
+    layout="@layout/helper_content_loader"
+    android:visibility="visible" />
+
+  <android.support.v7.widget.AppCompatTextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/app_gap_normal"
+    android:text="@string/app_splash_loading"
+    android:textColor="@color/appColorWhite"
+    style="@style/Base.TextAppearance.AppCompat.Medium.Inverse" />
+
+</android.support.v7.widget.LinearLayoutCompat>

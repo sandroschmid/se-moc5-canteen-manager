@@ -4,4 +4,6 @@
   <dimen name="activity_vertical_margin">16dp</dimen>
 
   <dimen name="app_gap_normal">10dp</dimen>
+  <dimen name="app_gap_large">20dp</dimen>
+  <dimen name="app_gap_xlarge">40dp</dimen>
 </resources>

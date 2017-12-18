@@ -8,6 +8,9 @@
   <!-- Common -->
   <string name="app_btn_save">Save</string>
 
+  <!-- Splash screen -->
+  <string name="app_splash_loading">Loading…</string>
+
   <!-- Login -->
   <string name="app_login_title">Sign in</string>
   <string name="app_login_hint_user_name">User name</string>

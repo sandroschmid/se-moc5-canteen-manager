@@ -25,16 +25,21 @@
     <!-- region Activity -->
 
     <activity
-      android:name=".ui.activity.LoginActivity"
-      android:label="@string/app_login_title"
-      android:noHistory="true" />
-
-    <activity android:name=".ui.activity.CanteenFormActivity">
+      android:name=".ui.activity.SplashActivity"
+      android:noHistory="true"
+      android:theme="@style/NoActionBar">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
+
+    <activity
+      android:name=".ui.activity.LoginActivity"
+      android:label="@string/app_login_title"
+      android:noHistory="true" />
+
+    <activity android:name=".ui.activity.CanteenFormActivity" />
 
     <activity
       android:name=".ui.activity.MapEditorActivity"
