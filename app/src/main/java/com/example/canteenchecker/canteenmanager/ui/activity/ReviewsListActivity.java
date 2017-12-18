@@ -27,7 +27,7 @@ public final class ReviewsListActivity extends BaseLoadingActivity {
   }
 
   public static void show(final Context context, final Canteen canteen) {
-    final Intent intent = new Intent(context, CanteenFormActivity.class);
+    final Intent intent = new Intent(context, ReviewsListActivity.class);
     if (canteen != null) {
       intent.putExtra(EXTRA_CANTEEN, canteen);
     }

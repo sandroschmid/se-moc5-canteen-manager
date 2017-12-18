@@ -36,17 +36,19 @@
 
     <activity
       android:name=".ui.activity.LoginActivity"
-      android:label="@string/app_login_title"
+      android:label="@string/app_activity_login"
       android:noHistory="true" />
 
     <activity android:name=".ui.activity.CanteenFormActivity" />
 
     <activity
       android:name=".ui.activity.MapEditorActivity"
+      android:label="@string/app_activity_map_editor"
       android:parentActivityName=".ui.activity.CanteenFormActivity" />
 
     <activity
       android:name=".ui.activity.ReviewsListActivity"
+      android:label="@string/app_activity_review_list"
       android:parentActivityName=".ui.activity.CanteenFormActivity" />
 
     <!-- endregion -->

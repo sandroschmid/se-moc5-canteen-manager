@@ -2,6 +2,11 @@
 
   <string name="app_name">Canteen-Manager</string>
 
+  <!-- Activities -->
+  <string name="app_activity_login">Sign in</string>
+  <string name="app_activity_map_editor">Map</string>
+  <string name="app_activity_review_list">Reviews</string>
+
   <!-- Main Menu -->
   <string name="menu_sign_out">Sign out</string>
 
@@ -12,7 +17,6 @@
   <string name="app_splash_loading">Loading…</string>
 
   <!-- Login -->
-  <string name="app_login_title">Sign in</string>
   <string name="app_login_hint_user_name">User name</string>
   <string name="app_login_hint_password">Password</string>
   <string name="app_login_btn_sign_in">Sign in</string>

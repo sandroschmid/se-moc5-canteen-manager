@@ -130,7 +130,7 @@ public final class CanteenFormFragment extends BaseFormFragment implements SeekB
     btnShowReviews.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(final View view) {
-        ReviewsListActivity.show(getContext());
+        ReviewsListActivity.show(getContext(), canteen);
       }
     });
     btnShowReviews.setVisibility(hasShowReviewsButton ? View.VISIBLE : View.GONE);
