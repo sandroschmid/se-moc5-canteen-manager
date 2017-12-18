@@ -9,37 +9,48 @@
   <android.support.v7.widget.LinearLayoutCompat
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal"
-    android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingEnd="@dimen/activity_horizontal_margin"
-    android:paddingStart="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin">
+    android:gravity="center_horizontal">
+
+    <include layout="@layout/helper_content_loader" />
 
     <android.support.v7.widget.LinearLayoutCompat
+      android:id="@+id/vContent"
       android:layout_width="match_parent"
-      android:layout_height="0dp"
-      android:layout_marginBottom="@dimen/activity_horizontal_margin"
-      android:layout_weight="1">
+      android:layout_height="match_parent"
+      android:gravity="center_horizontal"
+      android:orientation="vertical"
+      android:paddingBottom="@dimen/activity_vertical_margin"
+      android:paddingEnd="@dimen/activity_horizontal_margin"
+      android:paddingStart="@dimen/activity_horizontal_margin"
+      android:paddingTop="@dimen/activity_vertical_margin">
 
-      <FrameLayout
-        android:id="@+id/fragCanteenForm"
+      <android.support.v7.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/activity_horizontal_margin"
+        android:layout_weight="1">
 
-    </android.support.v7.widget.LinearLayoutCompat>
+        <FrameLayout
+          android:id="@+id/fragCanteenForm"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent" />
 
-    <android.support.v7.widget.LinearLayoutCompat
-      android:layout_width="match_parent"
-      android:layout_height="0dp"
-      android:layout_weight="1" >
+      </android.support.v7.widget.LinearLayoutCompat>
 
-      <FrameLayout
-        android:id="@+id/fragReviewList"
+      <android.support.v7.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <FrameLayout
+          android:id="@+id/fragReviewList"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent" />
+
+      </android.support.v7.widget.LinearLayoutCompat>
 
     </android.support.v7.widget.LinearLayoutCompat>
 
   </android.support.v7.widget.LinearLayoutCompat>
+
 </android.support.v4.widget.SwipeRefreshLayout>

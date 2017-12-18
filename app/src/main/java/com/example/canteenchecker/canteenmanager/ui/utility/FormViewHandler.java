@@ -13,7 +13,7 @@ import java.util.Map;
  */
 public class FormViewHandler {
 
-  public static interface FormView extends LoadingViewHandler.LoadingView {
+  public interface FormView extends LoadingViewHandler.LoadingView {
     View getSubmitView();
 
     void addInput(final FormInput<?, ?, ?> input);
@@ -25,6 +25,8 @@ public class FormViewHandler {
     void trySubmit();
 
     void submit();
+
+    void reset();
   }
 
   private final Map<Integer, FormInput<?, ?, ?>> inputs = new HashMap<>();
@@ -69,6 +71,12 @@ public class FormViewHandler {
     }
 
     inputs.put(resId, input);
+  }
+
+  public void reset() {
+    for (final FormInput<?, ?, ?> input : inputs.values()) {
+      input.reset();
+    }
   }
 
   public final void removeErrors() {

@@ -43,6 +43,11 @@ public abstract class BaseFormActivity extends BaseLoadingActivity implements Fo
   }
 
   @Override
+  public void reset() {
+    formViewHandler.reset();
+  }
+
+  @Override
   protected void initView() {
     super.initView();
     vSubmit = findViewById(R.id.vSubmit);

@@ -61,6 +61,11 @@ public final class RatingsAdapter extends RecyclerView.Adapter<RatingsAdapter.Vi
     }
   }
 
+  public void removeAll() {
+    ratings.clear();
+    notifyDataSetChanged();
+  }
+
   public class ViewHolder extends RecyclerView.ViewHolder {
 
     private AppCompatRatingBar rbRating;
@@ -84,17 +89,17 @@ public final class RatingsAdapter extends RecyclerView.Adapter<RatingsAdapter.Vi
       });
     }
 
-    private void bind(final Rating review) {
-      rbRating.setRating(review.getRating());
-      if (review.hasDescription()) {
-        tvDescription.setText(review.getDescription());
+    private void bind(final Rating rating) {
+      rbRating.setRating(rating.getRating());
+      if (rating.hasDescription()) {
+        tvDescription.setText(rating.getDescription());
         tvDescription.setVisibility(View.VISIBLE);
       } else {
         tvDescription.setVisibility(View.GONE);
       }
-      tvUser.setText(review.getUserName());
-      tvDate.setText(review.getDate().toString());
-      btnDelete.setTag(review.getId());
+      tvUser.setText(rating.getUserName());
+      tvDate.setText(rating.getDate().toString());
+      btnDelete.setTag(rating.getId());
     }
 
     private void delete() {

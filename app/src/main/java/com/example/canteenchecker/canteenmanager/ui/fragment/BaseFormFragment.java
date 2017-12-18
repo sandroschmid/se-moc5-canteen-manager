@@ -43,6 +43,11 @@ public abstract class BaseFormFragment extends BaseLoadingFragment implements Fo
   }
 
   @Override
+  public void reset() {
+    formViewHandler.reset();
+  }
+
+  @Override
   public void onSaveInstanceState(final Bundle outState) {
     super.onSaveInstanceState(outState);
     formViewHandler.onSaveInstanceState(outState);

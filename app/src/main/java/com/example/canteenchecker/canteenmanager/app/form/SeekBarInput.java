@@ -14,7 +14,7 @@ public final class SeekBarInput extends FormInput<SeekBarInput, AppCompatSeekBar
 
   @Override
   public void setValue(final Integer progress) {
-    view.setProgress(progress);
+    view.setProgress(progress != null ? progress : 0);
   }
 
   @Override

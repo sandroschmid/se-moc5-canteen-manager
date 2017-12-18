@@ -6,10 +6,8 @@
                                               android:orientation="vertical"
                                               tools:context=".ui.activity.LoginActivity">
 
-  <include layout="@layout/helper_content_loader" />
-
   <android.support.v7.widget.RecyclerView
-    android:id="@+id/vContent"
+    android:id="@+id/rvRatings"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scrollbars="vertical" />

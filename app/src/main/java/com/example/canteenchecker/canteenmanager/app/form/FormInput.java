@@ -71,6 +71,10 @@ public abstract class FormInput<TInput extends FormInput<TInput, ?, ?>, TView ex
     return true;
   }
 
+  public void reset() {
+    setValue(null);
+  }
+
   public void removeErrors() {
     // dummy
   }

@@ -8,17 +8,22 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.canteenchecker.canteenmanager.App;
 import com.example.canteenchecker.canteenmanager.R;
 import com.example.canteenchecker.canteenmanager.app.entity.Canteen;
+import com.example.canteenchecker.canteenmanager.app.event.AdminCanteenReceivedEvent;
+import com.example.canteenchecker.canteenmanager.app.event.BaseRequestResultEvent;
+import com.example.canteenchecker.canteenmanager.app.event.EventReceiver;
+import com.example.canteenchecker.canteenmanager.app.request.GetAdminCanteenRequest;
 import com.example.canteenchecker.canteenmanager.ui.fragment.CanteenFormFragment;
 import com.example.canteenchecker.canteenmanager.ui.fragment.ReviewsListFragment;
 
 /**
  * @author sschmid
  */
-public final class CanteenFormActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener {
+public final class CanteenFormActivity extends BaseLoadingActivity implements SwipeRefreshLayout.OnRefreshListener {
 
   private static final String EXTRA_CANTEEN = "EXTRA_CANTEEN";
   private static final String EXTRA_REVIEWS_SHOWN = "EXTRA_REVIEWS_SHOWN";
@@ -36,16 +41,69 @@ public final class CanteenFormActivity extends BaseActivity implements SwipeRefr
   }
 
   public static Canteen getCanteen(final Bundle args) {
-    return args == null ? null : (Canteen) args.getParcelable(EXTRA_CANTEEN);
+    return args != null ? (Canteen) args.getParcelable(EXTRA_CANTEEN) : null;
   }
 
   public static boolean hasReviews(final Bundle args) {
     return args != null && args.getBoolean(EXTRA_REVIEWS_SHOWN, false);
   }
 
+  private final AdminCanteenReceivedEvent adminCanteenReceivedEvent = App.getInstance()
+      .getEventManager()
+      .getAdminCanteenReceivedEvent();
+
+  private EventReceiver<BaseRequestResultEvent.RequestResult<Canteen>> adminCanteenEventReceiver;
+
   private SwipeRefreshLayout swipeRefreshLayout;
   private CanteenFormFragment canteenFormFragment;
   private ReviewsListFragment reviewsListFragment;
+
+  private Canteen canteen;
+
+  @Override
+  protected void onSaveInstanceState(final Bundle outState) {
+    super.onSaveInstanceState(outState);
+    outState.putParcelable(EXTRA_CANTEEN, canteen);
+  }
+
+  @Override
+  protected void onRestoreInstanceState(final Bundle savedInstanceState) {
+    super.onRestoreInstanceState(savedInstanceState);
+    canteen = savedInstanceState.getParcelable(EXTRA_CANTEEN);
+  }
+
+  @Override
+  public void onDestroy() {
+    super.onDestroy();
+    adminCanteenReceivedEvent.unregister(adminCanteenEventReceiver);
+  }
+
+  @Override
+  protected void restoreSavedState(final Bundle savedInstanceState) {
+    // nothing to do
+  }
+
+  @Override
+  protected void initEventReceivers() {
+    super.initEventReceivers();
+    adminCanteenEventReceiver = new EventReceiver<BaseRequestResultEvent.RequestResult<Canteen>>() {
+      @Override
+      public void onNewEvent(final BaseRequestResultEvent.RequestResult<Canteen> result) {
+        stopLoading();
+        if (result.isSuccessful()) {
+          setCanteen(result.getData());
+        } else {
+          Toast.makeText(
+              CanteenFormActivity.this,
+              R.string.app_error_load_failure_admin_canteen,
+              Toast.LENGTH_SHORT
+          ).show();
+        }
+      }
+    };
+
+    adminCanteenReceivedEvent.register(adminCanteenEventReceiver);
+  }
 
   @Override
   protected int getLayout() {
@@ -54,6 +112,7 @@ public final class CanteenFormActivity extends BaseActivity implements SwipeRefr
 
   @Override
   protected void initView() {
+    super.initView();
     swipeRefreshLayout = findViewById(R.id.swipeRefresh);
     swipeRefreshLayout.setOnRefreshListener(this);
 
@@ -80,11 +139,18 @@ public final class CanteenFormActivity extends BaseActivity implements SwipeRefr
     }
 
     fragmentTransaction.commit();
+
+    if (args.containsKey(EXTRA_CANTEEN)) {
+      canteen = getCanteen(args);
+    }
   }
 
   @Override
-  protected void restoreSavedState(final Bundle savedInstanceState) {
-    // nothing to do
+  protected void setViewData() {
+    super.setViewData();
+    if (canteen == null) {
+      onRefresh();
+    }
   }
 
   @Override
@@ -107,10 +173,15 @@ public final class CanteenFormActivity extends BaseActivity implements SwipeRefr
 
   @Override
   public void onRefresh() {
+    startLoading();
     swipeRefreshLayout.setRefreshing(false);
-    canteenFormFragment.onRefresh();
+    new GetAdminCanteenRequest(this).send();
+  }
+
+  private void setCanteen(final Canteen canteen) {
+    canteenFormFragment.setCanteen(canteen);
     if (reviewsListFragment != null) {
-      reviewsListFragment.onRefresh();
+      reviewsListFragment.setCanteen(canteen);
     }
   }
 }

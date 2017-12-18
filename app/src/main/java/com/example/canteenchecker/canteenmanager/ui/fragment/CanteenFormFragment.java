@@ -1,26 +1,21 @@
 package com.example.canteenchecker.canteenmanager.ui.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatSeekBar;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
 import android.widget.SeekBar;
-import android.widget.Toast;
 
-import com.example.canteenchecker.canteenmanager.App;
 import com.example.canteenchecker.canteenmanager.R;
 import com.example.canteenchecker.canteenmanager.app.entity.Canteen;
-import com.example.canteenchecker.canteenmanager.app.event.AdminCanteenReceivedEvent;
-import com.example.canteenchecker.canteenmanager.app.event.BaseRequestResultEvent;
-import com.example.canteenchecker.canteenmanager.app.event.EventReceiver;
 import com.example.canteenchecker.canteenmanager.app.form.SeekBarInput;
 import com.example.canteenchecker.canteenmanager.app.form.TextInput;
-import com.example.canteenchecker.canteenmanager.app.request.GetAdminCanteenRequest;
 import com.example.canteenchecker.canteenmanager.app.request.PutAdminCanteenRequest;
+import com.example.canteenchecker.canteenmanager.ui.activity.BaseLoadingActivity;
 import com.example.canteenchecker.canteenmanager.ui.activity.CanteenFormActivity;
 import com.example.canteenchecker.canteenmanager.ui.activity.MapEditorActivity;
 import com.example.canteenchecker.canteenmanager.ui.activity.ReviewsListActivity;
@@ -30,18 +25,15 @@ import java.text.NumberFormat;
 /**
  * @author sschmid
  */
-public final class CanteenFormFragment extends BaseFormFragment implements SwipeRefreshLayout.OnRefreshListener {
+public final class CanteenFormFragment extends BaseFormFragment implements SeekBar.OnSeekBarChangeListener {
 
+  private static final String STATE_CANTEEN = "STATE_CANTEEN";
   private static final NumberFormat priceFormat = NumberFormat.getNumberInstance();
 
-  private final AdminCanteenReceivedEvent adminCanteenReceivedEvent = App.getInstance()
-      .getEventManager()
-      .getAdminCanteenReceivedEvent();
-
-  private EventReceiver<BaseRequestResultEvent.RequestResult<Canteen>> adminCanteenEventReceiver;
-  private Canteen canteen;
+  private AppCompatTextView tvAvgWaitingTime;
   private FloatingActionButton btnShowReviews;
 
+  private Canteen canteen;
   private boolean hasShowReviewsButton;
 
   @Override
@@ -50,6 +42,33 @@ public final class CanteenFormFragment extends BaseFormFragment implements Swipe
     canteen = CanteenFormActivity.getCanteen(args);
     hasShowReviewsButton = !CanteenFormActivity.hasReviews(args);
   }
+
+  // region SeekBar.ChangeListener
+
+  @Override
+  public void onProgressChanged(
+      final SeekBar seekBar,
+      final int progress,
+      final boolean fromUser
+  ) {
+    tvAvgWaitingTime.setText(getResources().getQuantityString(
+        R.plurals.app_canteen_label_avg_waiting_time,
+        progress,
+        progress
+    ));
+  }
+
+  @Override
+  public void onStartTrackingTouch(final SeekBar seekBar) {
+    // ignore
+  }
+
+  @Override
+  public void onStopTrackingTouch(final SeekBar seekBar) {
+    // ignore
+  }
+
+  // endregion
 
   @Override
   public void submit() {
@@ -65,14 +84,19 @@ public final class CanteenFormFragment extends BaseFormFragment implements Swipe
   }
 
   @Override
-  protected int getLayout() {
-    return R.layout.fragment_canteen_form;
+  public void onSaveInstanceState(@NonNull final Bundle outState) {
+    super.onSaveInstanceState(outState);
+    outState.putParcelable(STATE_CANTEEN, canteen);
   }
 
   @Override
-  public void onRefresh() {
-    startLoading();
-    new GetAdminCanteenRequest(getContext()).send();
+  public void restoreSavedState(final Bundle savedInstanceState) {
+    setCanteen((Canteen) savedInstanceState.getParcelable(STATE_CANTEEN));
+  }
+
+  @Override
+  protected int getLayout() {
+    return R.layout.fragment_canteen_form;
   }
 
   @Override
@@ -97,32 +121,10 @@ public final class CanteenFormFragment extends BaseFormFragment implements Swipe
 
     addInput(new TextInput(++order, (AppCompatEditText) view.findViewById(R.id.etPhone)));
 
-    final AppCompatTextView tvAvgWaitingTime = view.findViewById(R.id.tvAverageWaitingTime);
+    tvAvgWaitingTime = view.findViewById(R.id.tvAverageWaitingTime);
     final AppCompatSeekBar sbAvgWaitingTime = view.findViewById(R.id.sbAverageWaitingTime);
     addInput(new SeekBarInput(++order, sbAvgWaitingTime));
-    sbAvgWaitingTime.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-
-      @Override
-      public void onProgressChanged(final SeekBar seekBar,
-                                    final int progress,
-                                    final boolean fromUser) {
-        tvAvgWaitingTime.setText(getResources().getQuantityString(
-            R.plurals.app_canteen_label_avg_waiting_time,
-            progress,
-            progress
-        ));
-      }
-
-      @Override
-      public void onStartTrackingTouch(final SeekBar seekBar) {
-        // ignore
-      }
-
-      @Override
-      public void onStopTrackingTouch(final SeekBar seekBar) {
-        // ignore
-      }
-    });
+    sbAvgWaitingTime.setOnSeekBarChangeListener(this);
 
     btnShowReviews = view.findViewById(R.id.btnShowReviews);
     btnShowReviews.setOnClickListener(new View.OnClickListener() {
@@ -137,50 +139,27 @@ public final class CanteenFormFragment extends BaseFormFragment implements Swipe
   @Override
   protected void setViewData() {
     super.setViewData();
-    if (canteen == null) {
-      onRefresh();
-    } else {
-      showData(canteen);
-    }
+    setCanteen(canteen);
   }
 
   @Override
-  protected void initEventReceivers() {
-    super.initEventReceivers();
-    adminCanteenEventReceiver = new EventReceiver<BaseRequestResultEvent.RequestResult<Canteen>>() {
-      @Override
-      public void onNewEvent(final BaseRequestResultEvent.RequestResult<Canteen> result) {
-        stopLoading();
-        if (result.isSuccessful()) {
-          showData(result.getData());
-        } else {
-          Toast.makeText(
-              getContext(),
-              R.string.app_error_load_failure_admin_canteen,
-              Toast.LENGTH_SHORT
-          ).show();
-        }
-      }
-    };
-
-    adminCanteenReceivedEvent.register(adminCanteenEventReceiver);
+  public void startLoading() {
+    ((BaseLoadingActivity) getActivity()).startLoading();
   }
 
-  @Override
-  public void onDestroy() {
-    super.onDestroy();
-    adminCanteenReceivedEvent.unregister(adminCanteenEventReceiver);
-  }
-
-  private void showData(final Canteen data) {
+  public void setCanteen(final Canteen data) {
     canteen = data;
-    this.<TextInput>getInput(R.id.etName).setValue(data.getName());
-    this.<TextInput>getInput(R.id.etMeal).setValue(data.getMeal());
-    this.<TextInput>getInput(R.id.etMealPrice).setValue(priceFormat.format(data.getMealPrice()));
-    this.<TextInput>getInput(R.id.etAddress).setValue(data.getAddress());
-    this.<TextInput>getInput(R.id.etWebsite).setValue(data.getWebsite());
-    this.<TextInput>getInput(R.id.etPhone).setValue(data.getPhoneNumber());
-    this.<SeekBarInput>getInput(R.id.sbAverageWaitingTime).setValue(data.getAverageWaitingTime());
+    if (data != null) {
+      this.<TextInput>getInput(R.id.etName).setValue(data.getName());
+      this.<TextInput>getInput(R.id.etMeal).setValue(data.getMeal());
+      this.<TextInput>getInput(R.id.etMealPrice).setValue(priceFormat.format(data.getMealPrice()));
+      this.<TextInput>getInput(R.id.etAddress).setValue(data.getAddress());
+      this.<TextInput>getInput(R.id.etWebsite).setValue(data.getWebsite());
+      this.<TextInput>getInput(R.id.etPhone).setValue(data.getPhoneNumber());
+      this.<SeekBarInput>getInput(R.id.sbAverageWaitingTime).setValue(data.getAverageWaitingTime());
+    } else {
+      reset();
+    }
   }
 
   private void showMap() {
