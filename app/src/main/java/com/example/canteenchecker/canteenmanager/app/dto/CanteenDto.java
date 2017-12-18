@@ -1,8 +1,10 @@
 package com.example.canteenchecker.canteenmanager.app.dto;
 
 import com.example.canteenchecker.canteenmanager.app.entity.Canteen;
+import com.example.canteenchecker.canteenmanager.app.entity.Rating;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -38,7 +40,7 @@ public final class CanteenDto {
   private int averageWaitingTime;
 
   @JsonProperty("ratings")
-  private List<Object> ratings;
+  private List<RatingDto> ratings;
 
   public CanteenDto() {
     // empty
@@ -66,7 +68,26 @@ public final class CanteenDto {
         website,
         phone,
         averageRating,
-        averageWaitingTime
+        averageWaitingTime,
+        getRatings()
     );
+  }
+
+  public ArrayList<Rating> getRatings() {
+    final ArrayList<Rating> result = new ArrayList<>();
+    if (ratings != null) {
+      for (final RatingDto rating : ratings) {
+        result.add(rating.toRating());
+      }
+    }
+    return result;
+
+//    final Rating[] result = new Rating[ratings.size()];
+//    if (ratings != null) {
+//      for (int i = 0; i < ratings.size(); i++) {
+//        result[i] = ratings.get(i).toRating();
+//      }
+//    }
+//    return result;
   }
 }

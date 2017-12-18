@@ -3,10 +3,12 @@ package com.example.canteenchecker.canteenmanager.app.dto;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.example.canteenchecker.canteenmanager.app.utility.BaseParcelable;
+
 /**
  * @author sschmid
  */
-public final class LocationDto extends BaseDto {
+public final class LocationDto extends BaseParcelable {
 
   public static final Parcelable.Creator<LocationDto> CREATOR = new Parcelable.Creator<LocationDto>() {
     public LocationDto createFromParcel(Parcel in) {

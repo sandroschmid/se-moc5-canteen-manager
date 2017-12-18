@@ -28,10 +28,12 @@
     <item quantity="one">Average waiting time: 1 minute</item>
     <item quantity="other">Average waiting time: %d minutes</item>
   </plurals>
+  <string name="app_btn_show_reviews">Reviews</string>
 
   <!-- Errors -->
   <string name="app_error_field_required">This field is required</string>
   <string name="app_error_load_failure_admin_canteen">Could not load canteen</string>
+  <string name="app_error_load_failure_admin_canteen_ratings">Could not load canteen ratings</string>
   <string name="app_common_currency_euro">€</string>
 
 </resources>

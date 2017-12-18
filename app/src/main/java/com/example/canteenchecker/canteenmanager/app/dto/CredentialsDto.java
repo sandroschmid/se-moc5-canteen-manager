@@ -3,12 +3,13 @@ package com.example.canteenchecker.canteenmanager.app.dto;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.example.canteenchecker.canteenmanager.app.utility.BaseParcelable;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * @author sschmid
  */
-public final class CredentialsDto extends BaseDto {
+public final class CredentialsDto extends BaseParcelable {
 
   public static final Parcelable.Creator<CredentialsDto> CREATOR = new Parcelable.Creator<CredentialsDto>() {
     public CredentialsDto createFromParcel(Parcel in) {

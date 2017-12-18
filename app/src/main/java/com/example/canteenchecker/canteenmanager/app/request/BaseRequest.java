@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 
-import com.example.canteenchecker.canteenmanager.app.dto.BaseDto;
+import com.example.canteenchecker.canteenmanager.app.utility.BaseParcelable;
 
 /**
  * @author sschmid
@@ -19,7 +19,7 @@ public abstract class BaseRequest<TService extends Service> {
     GET, POST, PUT
   }
 
-  final BaseDto dto;
+  final BaseParcelable dto;
 
   private final Context context;
   private final Method method;
@@ -32,7 +32,7 @@ public abstract class BaseRequest<TService extends Service> {
     this(context, method, null);
   }
 
-  protected BaseRequest(final Context context, final Method method, @Nullable final BaseDto dto) {
+  protected BaseRequest(final Context context, final Method method, @Nullable final BaseParcelable dto) {
     this.context = context;
     this.method = method;
     this.dto = dto;

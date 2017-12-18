@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:gravity="center"
+  android:layout_marginTop="@dimen/app_gap_small"
+  android:layout_marginBottom="@dimen/app_gap_small"
+  android:orientation="horizontal">
+
+  <android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.AppCompatRatingBar
+      android:id="@+id/rbRating"
+      style="@style/Widget.AppCompat.RatingBar.Small"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:isIndicator="true"
+      android:numStars="5" />
+
+    <android.support.v7.widget.AppCompatTextView
+      android:id="@+id/tvDescription"
+      style="@style/TextAppearance.AppCompat.Body2"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content" />
+
+    <android.support.v7.widget.LinearLayoutCompat
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+
+      <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/tvUser"
+        style="@style/TextAppearance.AppCompat.Caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+      <android.support.v7.widget.AppCompatTextView
+        style="@style/TextAppearance.AppCompat.Caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/app_gap_small"
+        android:layout_marginStart="@dimen/app_gap_small"
+        android:text="|" />
+
+      <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/tvDate"
+        style="@style/TextAppearance.AppCompat.Caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    </android.support.v7.widget.LinearLayoutCompat>
+  </android.support.v7.widget.LinearLayoutCompat>
+
+  <android.support.v7.widget.AppCompatImageView
+    android:id="@+id/btnDelete"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/app_gap_normal"
+    android:src="@mipmap/ic_clear_black" />
+
+</android.support.v7.widget.LinearLayoutCompat>

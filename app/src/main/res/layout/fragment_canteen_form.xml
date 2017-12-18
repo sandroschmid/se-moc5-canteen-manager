@@ -1,10 +1,10 @@
 <android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  android:gravity="center_horizontal"
-  android:orientation="vertical"
-  tools:context=".ui.activity.LoginActivity">
+                                              xmlns:tools="http://schemas.android.com/tools"
+                                              android:layout_width="match_parent"
+                                              android:layout_height="match_parent"
+                                              android:gravity="center_horizontal"
+                                              android:orientation="vertical"
+                                              tools:context=".ui.activity.LoginActivity">
 
   <include layout="@layout/helper_content_loader" />
 
@@ -169,14 +169,31 @@
 
       <include layout="@layout/helper_vertical_spacer" />
 
-      <android.support.design.widget.FloatingActionButton
-        android:id="@+id/vSubmit"
+      <android.support.v7.widget.LinearLayoutCompat
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
-        android:src="@mipmap/ic_done"
-        android:tooltipText="@string/app_btn_save"
-        tools:targetApi="o" />
+        android:orientation="horizontal">
+
+        <android.support.design.widget.FloatingActionButton
+          android:id="@+id/btnShowReviews"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="@dimen/app_gap_normal"
+          android:src="@mipmap/ic_star_half_white"
+          android:tooltipText="@string/app_btn_show_reviews"
+          android:visibility="gone"
+          tools:targetApi="o" />
+
+        <android.support.design.widget.FloatingActionButton
+          android:id="@+id/vSubmit"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:src="@mipmap/ic_done"
+          android:tooltipText="@string/app_btn_save"
+          tools:targetApi="o" />
+
+      </android.support.v7.widget.LinearLayoutCompat>
 
     </LinearLayout>
   </ScrollView>

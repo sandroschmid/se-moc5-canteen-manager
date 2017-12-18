@@ -1,11 +1,11 @@
-package com.example.canteenchecker.canteenmanager.app.dto;
+package com.example.canteenchecker.canteenmanager.app.utility;
 
 import android.os.Parcelable;
 
 /**
  * @author sschmid
  */
-public abstract class BaseDto implements Parcelable {
+public abstract class BaseParcelable implements Parcelable {
 
   @Override
   public int describeContents() {

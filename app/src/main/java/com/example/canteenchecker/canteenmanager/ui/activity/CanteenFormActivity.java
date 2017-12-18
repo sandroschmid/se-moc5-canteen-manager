@@ -21,6 +21,7 @@ import com.example.canteenchecker.canteenmanager.ui.fragment.ReviewsListFragment
 public final class CanteenFormActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener {
 
   private static final String EXTRA_CANTEEN = "EXTRA_CANTEEN";
+  private static final String EXTRA_REVIEWS_SHOWN = "EXTRA_REVIEWS_SHOWN";
 
   public static void show(final Context context) {
     show(context, null);
@@ -38,6 +39,10 @@ public final class CanteenFormActivity extends BaseActivity implements SwipeRefr
     return args == null ? null : (Canteen) args.getParcelable(EXTRA_CANTEEN);
   }
 
+  public static boolean hasReviews(final Bundle args) {
+    return args != null && args.getBoolean(EXTRA_REVIEWS_SHOWN, false);
+  }
+
   private SwipeRefreshLayout swipeRefreshLayout;
   private CanteenFormFragment canteenFormFragment;
   private ReviewsListFragment reviewsListFragment;
@@ -52,19 +57,25 @@ public final class CanteenFormActivity extends BaseActivity implements SwipeRefr
     swipeRefreshLayout = findViewById(R.id.swipeRefresh);
     swipeRefreshLayout.setOnRefreshListener(this);
 
-    final Bundle args = getIntent().getExtras();
+    final View reviewListContainer = findViewById(R.id.fragReviewList);
+
+    Bundle args = getIntent().getExtras();
+    if (args == null) {
+      args = new Bundle();
+    }
+
+    args.putBoolean(EXTRA_REVIEWS_SHOWN, reviewListContainer != null);
+
     canteenFormFragment = new CanteenFormFragment();
     canteenFormFragment.setArguments(args);
 
-    reviewsListFragment = new ReviewsListFragment();
-    reviewsListFragment.setArguments(args);
-
-    final View reviewListContainer = findViewById(R.id.fragReviewList);
     final FragmentTransaction fragmentTransaction = getSupportFragmentManager()
         .beginTransaction()
         .replace(R.id.fragCanteenForm, canteenFormFragment);
 
     if (reviewListContainer != null) {
+      reviewsListFragment = new ReviewsListFragment();
+      reviewsListFragment.setArguments(args);
       fragmentTransaction.replace(R.id.fragReviewList, reviewsListFragment);
     }
 

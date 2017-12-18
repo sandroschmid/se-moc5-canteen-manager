@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.example.canteenchecker.canteenmanager">
+          package="com.example.canteenchecker.canteenmanager">
 
   <uses-permission android:name="android.permission.INTERNET" />
   <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -45,6 +45,10 @@
       android:name=".ui.activity.MapEditorActivity"
       android:parentActivityName=".ui.activity.CanteenFormActivity" />
 
+    <activity
+      android:name=".ui.activity.ReviewsListActivity"
+      android:parentActivityName=".ui.activity.CanteenFormActivity" />
+
     <!-- endregion -->
 
     <!-- region Service -->
@@ -56,7 +60,10 @@
     <service
       android:name=".service.AdminCanteenService"
       android:exported="false" />
-    <service android:name=".service.GeoCodingService" />
+
+    <service
+      android:name=".service.GeoCodingService"
+      android:exported="false" />
 
     <!-- endregion -->
 

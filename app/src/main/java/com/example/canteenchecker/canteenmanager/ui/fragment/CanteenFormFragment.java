@@ -2,6 +2,7 @@ package com.example.canteenchecker.canteenmanager.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatSeekBar;
@@ -22,6 +23,7 @@ import com.example.canteenchecker.canteenmanager.app.request.GetAdminCanteenRequ
 import com.example.canteenchecker.canteenmanager.app.request.PutAdminCanteenRequest;
 import com.example.canteenchecker.canteenmanager.ui.activity.CanteenFormActivity;
 import com.example.canteenchecker.canteenmanager.ui.activity.MapEditorActivity;
+import com.example.canteenchecker.canteenmanager.ui.activity.ReviewsListActivity;
 
 import java.text.NumberFormat;
 
@@ -38,11 +40,15 @@ public final class CanteenFormFragment extends BaseFormFragment implements Swipe
 
   private EventReceiver<BaseRequestResultEvent.RequestResult<Canteen>> adminCanteenEventReceiver;
   private Canteen canteen;
+  private FloatingActionButton btnShowReviews;
+
+  private boolean hasShowReviewsButton;
 
   @Override
   public void setArguments(@Nullable final Bundle args) {
     super.setArguments(args);
     canteen = CanteenFormActivity.getCanteen(args);
+    hasShowReviewsButton = !CanteenFormActivity.hasReviews(args);
   }
 
   @Override
@@ -117,6 +123,15 @@ public final class CanteenFormFragment extends BaseFormFragment implements Swipe
         // ignore
       }
     });
+
+    btnShowReviews = view.findViewById(R.id.btnShowReviews);
+    btnShowReviews.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(final View view) {
+        ReviewsListActivity.show(getContext());
+      }
+    });
+    btnShowReviews.setVisibility(hasShowReviewsButton ? View.VISIBLE : View.GONE);
   }
 
   @Override
