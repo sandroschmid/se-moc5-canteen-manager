@@ -24,19 +24,18 @@ public abstract class BaseRequestService<TResult> extends IntentService {
       return;
     }
 
-    TResult responseData = null;
     try {
-      responseData = executeRequest(intent);
+      final TResult responseData = executeRequest(intent);
+
+      final BaseRequestResultEvent.RequestResult<TResult> result = new BaseRequestResultEvent.RequestResult<>(
+          responseData != null,
+          responseData
+      );
+
+      getEvent().send(result);
     } catch (Exception e) {
       Log.e(TAG, "Could not execute request", e);
     }
-
-    final BaseRequestResultEvent.RequestResult<TResult> result = new BaseRequestResultEvent.RequestResult<>(
-        responseData != null,
-        responseData
-    );
-
-    getEvent().send(result);
   }
 
   abstract TResult executeRequest(final Intent intent) throws Exception;

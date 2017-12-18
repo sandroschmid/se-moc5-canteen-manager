@@ -20,8 +20,7 @@ public final class ReviewsListFragment extends BaseFragment {
 
   private static final String STATE_CANTEEN = "STATE_CANTEEN";
 
-  private final RatingsAdapter ratingsAdapter = new RatingsAdapter();
-
+  private RatingsAdapter ratingsAdapter;
   private RecyclerView rvRatings;
   private Canteen canteen;
 
@@ -38,9 +37,16 @@ public final class ReviewsListFragment extends BaseFragment {
   }
 
   @Override
+  public void onDestroy() {
+    super.onDestroy();
+    ratingsAdapter.destroy();
+  }
+
+  @Override
   protected void initView(final View view) {
     super.initView(view);
 
+    ratingsAdapter = new RatingsAdapter(view.getContext());
     rvRatings = view.findViewById(R.id.rvRatings);
     rvRatings.setLayoutManager(new LinearLayoutManager(getContext()));
     rvRatings.setItemAnimator(new DefaultItemAnimator());

@@ -20,7 +20,11 @@ public final class HttpRequest {
   private static final String SERVICE_BASE_URL = "https://canteenchecker.azurewebsites.net/";
   private static final long ARTIFICIAL_DELAY = 100;
 
-  public <T> T get(final String relativeURL, final String authToken, final Class<T> cls) throws BackendException {
+  public <T> T get(
+      final String relativeURL,
+      final String authToken,
+      final Class<T> cls
+  ) throws BackendException {
     try {
       final URLConnection connection = createConnection("GET", relativeURL, authToken);
       final InputStream inputStream = connection.getInputStream();
@@ -95,6 +99,10 @@ public final class HttpRequest {
     } catch (IOException e) {
       throw new BackendException(e);
     }
+  }
+
+  public void delete(final String relativeURL, final String authToken) throws BackendException {
+    createConnection("DELETE", relativeURL, authToken);
   }
 
   private HttpURLConnection createConnection(

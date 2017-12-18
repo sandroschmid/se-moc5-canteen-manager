@@ -30,8 +30,18 @@ public final class Backend {
     return dto == null ? null : dto.toCanteen();
   }
 
-  public Canteen putAdminCanteen(final String authToken, final Canteen canteen) throws BackendException {
+  public Canteen putAdminCanteen(
+      final String authToken,
+      final Canteen canteen
+  ) throws BackendException {
     http.put("/Admin/Canteen", authToken, new CanteenDto(canteen));
     return canteen;
+  }
+
+  public void deleteRatingFromAdminCanteen(
+      final String authToken,
+      final String ratingId
+  ) throws BackendException {
+    http.delete(String.format("/Admin/Canteen/Rating/%s", ratingId), authToken);
   }
 }

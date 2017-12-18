@@ -1,14 +1,21 @@
 package com.example.canteenchecker.canteenmanager.ui.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.AppCompatRatingBar;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.example.canteenchecker.canteenmanager.App;
 import com.example.canteenchecker.canteenmanager.R;
 import com.example.canteenchecker.canteenmanager.app.entity.Rating;
+import com.example.canteenchecker.canteenmanager.app.event.BaseRequestResultEvent;
+import com.example.canteenchecker.canteenmanager.app.event.EventReceiver;
+import com.example.canteenchecker.canteenmanager.app.event.RatingDeletedEvent;
+import com.example.canteenchecker.canteenmanager.app.request.DeleteAdminCanteenRatingRequest;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -19,19 +26,43 @@ import java.util.ArrayList;
  */
 public final class RatingsAdapter extends RecyclerView.Adapter<RatingsAdapter.ViewHolder> {
 
+  private final RatingDeletedEvent ratingDeletedEvent = App.getInstance().getEventManager().getRatingDeletedEvent();
+
+  private EventReceiver<BaseRequestResultEvent.RequestResult<String>> ratingDeletedEventReceiver;
   private ArrayList<Rating> ratings;
 
-  public RatingsAdapter() {
-    this(new ArrayList<Rating>());
+  public RatingsAdapter(final Context context) {
+    this(context, new ArrayList<Rating>());
   }
 
-  public RatingsAdapter(final ArrayList<Rating> ratings) {
+  public RatingsAdapter(final Context context, final ArrayList<Rating> ratings) {
     this.ratings = ratings;
+
+    ratingDeletedEventReceiver = new EventReceiver<BaseRequestResultEvent.RequestResult<String>>() {
+      @Override
+      public void onNewEvent(final BaseRequestResultEvent.RequestResult<String> result) {
+        if (result.isSuccessful()) {
+          remove(result.getData());
+        } else {
+          Toast.makeText(
+              context,
+              R.string.app_error_delete_rating_failure,
+              Toast.LENGTH_SHORT
+          ).show();
+        }
+      }
+    };
+
+    ratingDeletedEvent.register(ratingDeletedEventReceiver);
   }
 
   @Override
   public RatingsAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
-    return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_review, parent, false));
+    return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(
+        R.layout.list_item_review,
+        parent,
+        false
+    ));
   }
 
   @Override
@@ -44,8 +75,8 @@ public final class RatingsAdapter extends RecyclerView.Adapter<RatingsAdapter.Vi
     return ratings == null ? 0 : ratings.size();
   }
 
-  public ArrayList<Rating> getRatings() {
-    return ratings;
+  public void destroy() {
+    ratingDeletedEvent.unregister(ratingDeletedEventReceiver);
   }
 
   public void setRatings(final ArrayList<Rating> ratings) {
@@ -53,33 +84,35 @@ public final class RatingsAdapter extends RecyclerView.Adapter<RatingsAdapter.Vi
     notifyDataSetChanged();
   }
 
-  public void remove(final String id) {
-    for (int i = 0; i < ratings.size(); i++) {
-      if (ratings.get(i).getId().equals(id)) {
-        ratings.remove(i);
-        notifyItemChanged(i);
-        return;
-      }
-    }
-  }
-
   public void removeAll() {
     ratings.clear();
     notifyDataSetChanged();
   }
 
+  private void remove(final String id) {
+    for (int i = 0; i < ratings.size(); i++) {
+      if (ratings.get(i).getId().equals(id)) {
+        ratings.remove(i);
+        notifyItemRemoved(i);
+        return;
+      }
+    }
+  }
+
   public class ViewHolder extends RecyclerView.ViewHolder {
 
+    private final Context context;
     private final DateFormat dateFormat = SimpleDateFormat.getDateTimeInstance();
 
-    private AppCompatRatingBar rbRating;
-    private AppCompatTextView tvDescription;
-    private AppCompatTextView tvUser;
-    private AppCompatTextView tvDate;
-    private View btnDelete;
+    private final AppCompatRatingBar rbRating;
+    private final AppCompatTextView tvDescription;
+    private final AppCompatTextView tvUser;
+    private final AppCompatTextView tvDate;
+    private final View btnDelete;
 
     public ViewHolder(final View view) {
       super(view);
+      context = view.getContext();
       rbRating = view.findViewById(R.id.rbRating);
       tvDescription = view.findViewById(R.id.tvDescription);
       tvUser = view.findViewById(R.id.tvUser);
@@ -107,8 +140,7 @@ public final class RatingsAdapter extends RecyclerView.Adapter<RatingsAdapter.Vi
     }
 
     private void delete() {
-      final String id = (String) btnDelete.getTag();
-      // TODO send delete request
+      new DeleteAdminCanteenRatingRequest(context, (String) btnDelete.getTag()).send();
     }
   }
 }

@@ -33,6 +33,7 @@
   <!-- Errors -->
   <string name="app_error_field_required">This field is required</string>
   <string name="app_error_load_failure_admin_canteen">Could not load canteen</string>
+  <string name="app_error_delete_rating_failure">Could not delete rating</string>
   <string name="app_common_currency_euro">€</string>
 
 </resources>

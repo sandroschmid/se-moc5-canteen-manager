@@ -16,7 +16,7 @@ public abstract class BaseRequest<TService extends Service> {
   public static final String KEY_DTO = "KEY_DTO";
 
   public enum Method {
-    GET, POST, PUT
+    GET, POST, PUT, DELETE
   }
 
   final BaseParcelable dto;
