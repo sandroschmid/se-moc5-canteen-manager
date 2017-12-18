@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import com.example.canteenchecker.canteenmanager.R;
 import com.example.canteenchecker.canteenmanager.app.entity.Rating;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 /**
@@ -68,6 +70,8 @@ public final class RatingsAdapter extends RecyclerView.Adapter<RatingsAdapter.Vi
 
   public class ViewHolder extends RecyclerView.ViewHolder {
 
+    private final DateFormat dateFormat = SimpleDateFormat.getDateTimeInstance();
+
     private AppCompatRatingBar rbRating;
     private AppCompatTextView tvDescription;
     private AppCompatTextView tvUser;
@@ -98,7 +102,7 @@ public final class RatingsAdapter extends RecyclerView.Adapter<RatingsAdapter.Vi
         tvDescription.setVisibility(View.GONE);
       }
       tvUser.setText(rating.getUserName());
-      tvDate.setText(rating.getDate().toString());
+      tvDate.setText(dateFormat.format(rating.getDate()));
       btnDelete.setTag(rating.getId());
     }
 
