@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
   package="com.example.canteenchecker.canteenmanager">
 
   <uses-permission android:name="android.permission.INTERNET" />
@@ -70,6 +71,22 @@
     <service
       android:name=".service.GeoCodingService"
       android:exported="false" />
+
+    <service
+      android:name=".service.firebase.InstanceIdService"
+      tools:ignore="ExportedService">
+      <intent-filter>
+        <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+      </intent-filter>
+    </service>
+
+    <service
+      android:name=".service.firebase.PushService"
+      tools:ignore="ExportedService">
+      <intent-filter>
+        <action android:name="com.google.firebase.MESSAGING_EVENT" />
+      </intent-filter>
+    </service>
 
     <!-- endregion -->
 
