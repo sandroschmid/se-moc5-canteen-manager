@@ -44,7 +44,7 @@ public final class App extends Application {
     FirebaseMessaging.getInstance().subscribeToTopic(FIREBASE_MESSAGING_TOPIC_CANTEENS);
 
     final String token = FirebaseInstanceId.getInstance().getToken();
-    Log.e(TAG, "Firebase token: " + token);
+    Log.d(TAG, "Firebase token: " + token);
 
     sharedPreferences = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
     eventManager = new EventManager(this);
