@@ -2,6 +2,7 @@ package com.example.canteenchecker.canteenmanager.service.firebase;
 
 import android.util.Log;
 
+import com.example.canteenchecker.canteenmanager.App;
 import com.example.canteenchecker.canteenmanager.app.request.GetAdminCanteenRequest;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
@@ -22,7 +23,8 @@ public final class PushService extends FirebaseMessagingService {
   public void onMessageReceived(final RemoteMessage remoteMessage) {
     Log.d(
         TAG,
-        String.format("Received firebase message from %s at %s",
+        String.format(
+            "Received firebase message from %s at %s",
             remoteMessage.getFrom(),
             SimpleDateFormat.getDateTimeInstance().format(new Date(remoteMessage.getSentTime()))
         )
@@ -30,7 +32,11 @@ public final class PushService extends FirebaseMessagingService {
 
     final Map<String, String> data = remoteMessage.getData();
     if (TYPE_VALUE.equals(data.get(TYPE_KEY))) {
-      new GetAdminCanteenRequest(this).send();
+      final String updatedCanteen = data.get(CANTEEN_ID_KEY);
+      final String currentCanteen = App.getInstance().getCurrentCanteen();
+      if (updatedCanteen != null && updatedCanteen.equals(currentCanteen)) {
+        new GetAdminCanteenRequest(this).send();
+      }
     }
   }
 

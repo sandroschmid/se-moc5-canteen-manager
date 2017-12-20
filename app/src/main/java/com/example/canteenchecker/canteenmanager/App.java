@@ -6,6 +6,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.example.canteenchecker.canteenmanager.app.entity.Canteen;
+import com.example.canteenchecker.canteenmanager.app.event.BaseRequestResultEvent;
+import com.example.canteenchecker.canteenmanager.app.event.EventReceiver;
 import com.example.canteenchecker.canteenmanager.app.utility.AuthenticationGuard;
 import com.example.canteenchecker.canteenmanager.app.utility.EventManager;
 import com.example.canteenchecker.canteenmanager.app.utility.SecurityManager;
@@ -19,10 +22,11 @@ import com.google.firebase.messaging.FirebaseMessaging;
  */
 public final class App extends Application {
 
-  private static final String TAG = App.class.getName();
   public static final Class<? extends Activity> HOME_ACTIVITY = CanteenFormActivity.class;
 
+  private static final String TAG = App.class.getName();
   private static final String FIREBASE_MESSAGING_TOPIC_CANTEENS = "canteens";
+  private static final String KEY_CURRENT_CANTEEN = "KEY_CURRENT_CANTEEN";
 
   private static App instance = null;
 
@@ -50,6 +54,19 @@ public final class App extends Application {
     eventManager = new EventManager(this);
     securityManager = new SecurityManager(this, eventManager);
     authenticationGuard = new AuthenticationGuard(this, securityManager);
+
+    eventManager.getAdminCanteenReceivedEvent()
+        .register(new EventReceiver<BaseRequestResultEvent.RequestResult<Canteen>>() {
+          @Override
+          public void onNewEvent(final BaseRequestResultEvent.RequestResult<Canteen> result) {
+            sharedPreferences.edit()
+                .putString(
+                    KEY_CURRENT_CANTEEN,
+                    result.isSuccessful() ? result.getData().getId() : null
+                )
+                .apply();
+          }
+        });
   }
 
   public SharedPreferences getSharedPreferences() {
@@ -66,5 +83,9 @@ public final class App extends Application {
 
   public AuthenticationGuard getAuthenticationGuard() {
     return authenticationGuard;
+  }
+
+  public String getCurrentCanteen() {
+    return sharedPreferences.getString(KEY_CURRENT_CANTEEN, null);
   }
 }
