@@ -27,7 +27,6 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:hint="@string/app_canteen_hint_name"
-          android:inputType="textCapCharacters"
           android:maxLines="1"
           android:singleLine="true" />
 
@@ -43,7 +42,6 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:hint="@string/app_canteen_hint_meal"
-          android:inputType="textCapCharacters"
           android:maxLines="1"
           android:singleLine="true" />
 
@@ -66,7 +64,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/app_canteen_hint_meal_price"
-            android:inputType="textCapCharacters"
             android:maxLines="1"
             android:singleLine="true" />
 
@@ -97,7 +94,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/app_canteen_hint_address"
-            android:inputType="textCapCharacters|textMultiLine"
+            android:inputType="textMultiLine"
             android:maxLines="3" />
 
         </android.support.design.widget.TextInputLayout>
