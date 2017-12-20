@@ -11,7 +11,7 @@ import java.util.Map;
 /**
  * @author sschmid
  */
-public class FormViewHandler {
+public final class FormViewHandler {
 
   public interface FormView extends LoadingViewHandler.LoadingView {
     View getSubmitView();
