@@ -10,7 +10,9 @@ import com.example.canteenchecker.canteenmanager.app.utility.AuthenticationGuard
 import com.example.canteenchecker.canteenmanager.app.utility.EventManager;
 import com.example.canteenchecker.canteenmanager.app.utility.SecurityManager;
 import com.example.canteenchecker.canteenmanager.ui.activity.CanteenFormActivity;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 /**
  * @author sschmid
@@ -19,6 +21,8 @@ public final class App extends Application {
 
   private static final String TAG = App.class.getName();
   public static final Class<? extends Activity> HOME_ACTIVITY = CanteenFormActivity.class;
+
+  private static final String FIREBASE_MESSAGING_TOPIC_CANTEENS = "canteens";
 
   private static App instance = null;
 
@@ -35,6 +39,9 @@ public final class App extends Application {
   public void onCreate() {
     super.onCreate();
     instance = this;
+
+    FirebaseApp.initializeApp(this);
+    FirebaseMessaging.getInstance().subscribeToTopic(FIREBASE_MESSAGING_TOPIC_CANTEENS);
 
     final String token = FirebaseInstanceId.getInstance().getToken();
     Log.e(TAG, "Firebase token: " + token);
