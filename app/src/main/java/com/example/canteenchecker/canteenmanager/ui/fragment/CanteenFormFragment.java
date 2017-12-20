@@ -221,7 +221,10 @@ public final class CanteenFormFragment extends BaseFormFragment implements SeekB
   }
 
   private void showMap() {
-    final Intent intent = MapEditorActivity.createIntent(getContext(), canteen.getAddress());
+    final Intent intent = MapEditorActivity.createIntent(
+        getContext(),
+        this.<TextInput>getInput(R.id.etAddress).getValue()
+    );
     startActivityForResult(intent, REQUEST_CODE_ADDRESS);
   }
 }

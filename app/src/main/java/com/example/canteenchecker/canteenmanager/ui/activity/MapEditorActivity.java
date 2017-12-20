@@ -38,6 +38,7 @@ public final class MapEditorActivity
 
   private static final String EXTRA_LOCATION = "EXTRA_LOCATION";
   private static final float DEFAULT_MAP_ZOOM_FACTOR = 15f;
+  private static final float UNKNOWN_ADDRESS_MAP_ZOOM_FACTOR = 0f;
 
   public static Intent createIntent(final Context context, final String address) {
     final Intent intent = new Intent(context, MapEditorActivity.class);
@@ -102,7 +103,11 @@ public final class MapEditorActivity
     etAddress = findViewById(R.id.etAddress);
     etAddress.setOnEditorActionListener(new TextView.OnEditorActionListener() {
       @Override
-      public boolean onEditorAction(final TextView textView, final int id, final KeyEvent keyEvent) {
+      public boolean onEditorAction(
+          final TextView textView,
+          final int id,
+          final KeyEvent keyEvent
+      ) {
         if (id == EditorInfo.IME_ACTION_SEARCH || id == EditorInfo.IME_NULL) {
           findLocation(etAddress.getText().toString());
           return true;
@@ -137,10 +142,8 @@ public final class MapEditorActivity
     latLngEventReceiver = new EventReceiver<BaseRequestResultEvent.RequestResult<LatLng>>() {
       @Override
       public void onNewEvent(final BaseRequestResultEvent.RequestResult<LatLng> result) {
-        if (result.isSuccessful()) {
-          stopLoading();
-          showData(result.getData());
-        } else {
+        showData(result.getData());
+        if (!result.isSuccessful()) {
           Toast.makeText(
               MapEditorActivity.this,
               R.string.app_error_load_failure_adress,
@@ -153,10 +156,8 @@ public final class MapEditorActivity
     addressEventReceiver = new EventReceiver<BaseRequestResultEvent.RequestResult<Address>>() {
       @Override
       public void onNewEvent(final BaseRequestResultEvent.RequestResult<Address> result) {
-        if (result.isSuccessful()) {
-          showData(result.getData());
-        } else {
-          stopLoading();
+        showData(result.getData());
+        if (!result.isSuccessful()) {
           Toast.makeText(
               MapEditorActivity.this,
               R.string.app_error_load_failure_adress,
@@ -200,19 +201,13 @@ public final class MapEditorActivity
   }
 
   private void showData(final LatLng latLng) {
-    if (marker != null) {
-      marker.remove();
-    }
-
     mapFragment.getMapAsync(new OnMapReadyCallback() {
       @Override
       public void onMapReady(final GoogleMap map) {
         if (latLng == null) {
-          map.animateCamera(CameraUpdateFactory.newLatLngZoom(
-              new LatLng(0, 0),
-              DEFAULT_MAP_ZOOM_FACTOR
-          ));
+          showUnknownAddress(map);
         } else {
+          removeExistingMarker();
           marker = map.addMarker(new MarkerOptions().position(latLng));
           map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, DEFAULT_MAP_ZOOM_FACTOR));
         }
@@ -222,23 +217,36 @@ public final class MapEditorActivity
   }
 
   private void showData(final Address address) {
-    if (address == null) {
-      return;
-    }
-
-    if (marker != null) {
-      marker.remove();
-    }
-
     setEditAddressValue(addressToString(address));
     mapFragment.getMapAsync(new OnMapReadyCallback() {
       @Override
       public void onMapReady(final GoogleMap map) {
-        final LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
-        marker = map.addMarker(new MarkerOptions().position(latLng));
+        if (address == null) {
+          showUnknownAddress(map);
+        } else {
+          removeExistingMarker();
+          final LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+          marker = map.addMarker(new MarkerOptions().position(latLng));
+        }
+
         stopLoading();
       }
     });
+  }
+
+  private void removeExistingMarker() {
+    if (marker != null) {
+      marker.remove();
+    }
+  }
+
+  private void showUnknownAddress(final GoogleMap map) {
+    if (marker == null) {
+      map.animateCamera(CameraUpdateFactory.newLatLngZoom(
+          new LatLng(0, 0),
+          UNKNOWN_ADDRESS_MAP_ZOOM_FACTOR
+      ));
+    }
   }
 
   private void setEditAddressValue(final String address) {
@@ -248,7 +256,7 @@ public final class MapEditorActivity
 
   private String addressToString(final Address address) {
     final StringBuilder addressText = new StringBuilder();
-    for(int i = 0; i <= address.getMaxAddressLineIndex(); i++) {
+    for (int i = 0; i <= address.getMaxAddressLineIndex(); i++) {
       addressText.append(address.getAddressLine(i)).append(", ");
     }
 
