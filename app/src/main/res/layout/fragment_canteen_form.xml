@@ -1,10 +1,11 @@
 <android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
-                                              xmlns:tools="http://schemas.android.com/tools"
-                                              android:layout_width="match_parent"
-                                              android:layout_height="match_parent"
-                                              android:gravity="center_horizontal"
-                                              android:orientation="vertical"
-                                              tools:context=".ui.activity.LoginActivity">
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:gravity="center_horizontal"
+  android:orientation="vertical"
+  tools:context=".ui.activity.LoginActivity">
 
   <ScrollView
     android:layout_width="match_parent"
@@ -170,6 +171,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <android.support.design.widget.FloatingActionButton
@@ -180,13 +182,14 @@
           android:src="@mipmap/ic_star_half_white"
           android:tooltipText="@string/app_btn_show_reviews"
           android:visibility="gone"
+          app:fabSize="mini"
           tools:targetApi="o" />
 
         <android.support.design.widget.FloatingActionButton
           android:id="@+id/vSubmit"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:src="@mipmap/ic_done"
+          android:src="@mipmap/ic_save_white"
           android:tooltipText="@string/app_btn_save"
           tools:targetApi="o" />
 
