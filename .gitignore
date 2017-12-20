@@ -7,3 +7,5 @@ build
 gradle
 captures
 externalNativeBuild
+
+docs/
