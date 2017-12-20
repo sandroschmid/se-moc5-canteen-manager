@@ -10,14 +10,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.example.canteenchecker.canteenmanager.App;
 import com.example.canteenchecker.canteenmanager.R;
 import com.example.canteenchecker.canteenmanager.app.entity.Rating;
-import com.example.canteenchecker.canteenmanager.app.event.BaseRequestResultEvent;
-import com.example.canteenchecker.canteenmanager.app.event.EventReceiver;
-import com.example.canteenchecker.canteenmanager.app.event.RatingDeletedEvent;
 import com.example.canteenchecker.canteenmanager.app.request.DeleteAdminCanteenRatingRequest;
 
 import java.text.DateFormat;
@@ -28,10 +23,6 @@ import java.util.ArrayList;
  * @author sschmid
  */
 public final class RatingsAdapter extends RecyclerView.Adapter<RatingsAdapter.ViewHolder> {
-
-  private final RatingDeletedEvent ratingDeletedEvent = App.getInstance().getEventManager().getRatingDeletedEvent();
-
-  private EventReceiver<BaseRequestResultEvent.RequestResult<String>> ratingDeletedEventReceiver;
   private ArrayList<Rating> ratings;
 
   private ProgressDialog progressDialog;
@@ -42,27 +33,6 @@ public final class RatingsAdapter extends RecyclerView.Adapter<RatingsAdapter.Vi
 
   public RatingsAdapter(final Context context, final ArrayList<Rating> ratings) {
     this.ratings = ratings;
-
-    ratingDeletedEventReceiver = new EventReceiver<BaseRequestResultEvent.RequestResult<String>>() {
-      @Override
-      public void onNewEvent(final BaseRequestResultEvent.RequestResult<String> result) {
-        if (progressDialog != null) {
-          progressDialog.dismiss();
-        }
-
-        if (result.isSuccessful()) {
-          remove(result.getData());
-        } else {
-          Toast.makeText(
-              context,
-              R.string.app_error_delete_rating_failure,
-              Toast.LENGTH_SHORT
-          ).show();
-        }
-      }
-    };
-
-    ratingDeletedEvent.register(ratingDeletedEventReceiver);
   }
 
   @Override
@@ -84,10 +54,6 @@ public final class RatingsAdapter extends RecyclerView.Adapter<RatingsAdapter.Vi
     return ratings == null ? 0 : ratings.size();
   }
 
-  public void destroy() {
-    ratingDeletedEvent.unregister(ratingDeletedEventReceiver);
-  }
-
   public void setRatings(final ArrayList<Rating> ratings) {
     this.ratings = ratings;
     notifyDataSetChanged();
@@ -98,13 +64,23 @@ public final class RatingsAdapter extends RecyclerView.Adapter<RatingsAdapter.Vi
     notifyDataSetChanged();
   }
 
-  private void remove(final String id) {
+  public void remove(final String id) {
     for (int i = 0; i < ratings.size(); i++) {
       if (ratings.get(i).getId().equals(id)) {
         ratings.remove(i);
         notifyItemRemoved(i);
         return;
       }
+    }
+  }
+
+  public boolean isEmpty() {
+    return ratings == null || ratings.isEmpty();
+  }
+
+  public void dismissLoader() {
+    if (progressDialog != null) {
+      progressDialog.dismiss();
     }
   }
 

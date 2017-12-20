@@ -7,9 +7,14 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Toast;
 
+import com.example.canteenchecker.canteenmanager.App;
 import com.example.canteenchecker.canteenmanager.R;
 import com.example.canteenchecker.canteenmanager.app.entity.Canteen;
+import com.example.canteenchecker.canteenmanager.app.event.BaseRequestResultEvent;
+import com.example.canteenchecker.canteenmanager.app.event.EventReceiver;
+import com.example.canteenchecker.canteenmanager.app.event.RatingDeletedEvent;
 import com.example.canteenchecker.canteenmanager.ui.activity.CanteenFormActivity;
 import com.example.canteenchecker.canteenmanager.ui.adapter.RatingsAdapter;
 
@@ -20,8 +25,13 @@ public final class ReviewsListFragment extends BaseFragment {
 
   private static final String STATE_CANTEEN = "STATE_CANTEEN";
 
+  private final RatingDeletedEvent ratingDeletedEvent = App.getInstance().getEventManager().getRatingDeletedEvent();
+
+  private EventReceiver<BaseRequestResultEvent.RequestResult<String>> ratingDeletedEventReceiver;
+
   private RatingsAdapter ratingsAdapter;
   private RecyclerView rvRatings;
+  private View vEmpty;
   private Canteen canteen;
 
   @Override
@@ -39,7 +49,7 @@ public final class ReviewsListFragment extends BaseFragment {
   @Override
   public void onDestroy() {
     super.onDestroy();
-    ratingsAdapter.destroy();
+    ratingDeletedEvent.unregister(ratingDeletedEventReceiver);
   }
 
   @Override
@@ -51,6 +61,31 @@ public final class ReviewsListFragment extends BaseFragment {
     rvRatings.setLayoutManager(new LinearLayoutManager(getContext()));
     rvRatings.setItemAnimator(new DefaultItemAnimator());
     rvRatings.setAdapter(ratingsAdapter);
+    vEmpty = view.findViewById(R.id.tvEmpty);
+  }
+
+  @Override
+  protected void initEventReceivers() {
+    super.initEventReceivers();
+
+    ratingDeletedEventReceiver = new EventReceiver<BaseRequestResultEvent.RequestResult<String>>() {
+      @Override
+      public void onNewEvent(final BaseRequestResultEvent.RequestResult<String> result) {
+        ratingsAdapter.dismissLoader();
+        if (result.isSuccessful()) {
+          ratingsAdapter.remove(result.getData());
+          showOrHideEmpty();
+        } else {
+          Toast.makeText(
+              getContext(),
+              R.string.app_error_delete_rating_failure,
+              Toast.LENGTH_SHORT
+          ).show();
+        }
+      }
+    };
+
+    ratingDeletedEvent.register(ratingDeletedEventReceiver);
   }
 
   @Override
@@ -75,6 +110,18 @@ public final class ReviewsListFragment extends BaseFragment {
       ratingsAdapter.setRatings(canteen.getRatings());
     } else {
       ratingsAdapter.removeAll();
+    }
+
+    showOrHideEmpty();
+  }
+
+  private void showOrHideEmpty() {
+    if (ratingsAdapter.isEmpty()) {
+      rvRatings.setVisibility(View.GONE);
+      vEmpty.setVisibility(View.VISIBLE);
+    } else {
+      rvRatings.setVisibility(View.VISIBLE);
+      vEmpty.setVisibility(View.GONE);
     }
   }
 }

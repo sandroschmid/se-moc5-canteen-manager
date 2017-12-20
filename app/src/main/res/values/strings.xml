@@ -46,5 +46,6 @@
   <string name="app_common_currency_euro">€</string>
   <string name="app_error_cannot_show_website">Could not find any app to view this website</string>
   <string name="app_error_cannot_call">Could not find any app to handle this number</string>
+  <string name="app_error_no_ratings">Looks like there are no ratings yet</string>
 
 </resources>
