@@ -1,6 +1,9 @@
 package com.example.canteenchecker.canteenmanager.ui.adapter;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatRatingBar;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;
@@ -31,6 +34,8 @@ public final class RatingsAdapter extends RecyclerView.Adapter<RatingsAdapter.Vi
   private EventReceiver<BaseRequestResultEvent.RequestResult<String>> ratingDeletedEventReceiver;
   private ArrayList<Rating> ratings;
 
+  private ProgressDialog progressDialog;
+
   public RatingsAdapter(final Context context) {
     this(context, new ArrayList<Rating>());
   }
@@ -41,6 +46,10 @@ public final class RatingsAdapter extends RecyclerView.Adapter<RatingsAdapter.Vi
     ratingDeletedEventReceiver = new EventReceiver<BaseRequestResultEvent.RequestResult<String>>() {
       @Override
       public void onNewEvent(final BaseRequestResultEvent.RequestResult<String> result) {
+        if (progressDialog != null) {
+          progressDialog.dismiss();
+        }
+
         if (result.isSuccessful()) {
           remove(result.getData());
         } else {
@@ -140,7 +149,25 @@ public final class RatingsAdapter extends RecyclerView.Adapter<RatingsAdapter.Vi
     }
 
     private void delete() {
-      new DeleteAdminCanteenRatingRequest(context, (String) btnDelete.getTag()).send();
+      new AlertDialog.Builder(context)
+          .setTitle(R.string.app_rating_confirm_delete_title)
+          .setMessage(R.string.app_rating_confirm_delete_text)
+          .setIcon(android.R.drawable.ic_dialog_alert)
+          .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(final DialogInterface dialogInterface, final int i) {
+              progressDialog = ProgressDialog.show(
+                  context,
+                  "",
+                  context.getString(R.string.app_splash_loading),
+                  true
+              );
+
+              new DeleteAdminCanteenRatingRequest(context, (String) btnDelete.getTag()).send();
+            }
+          })
+          .setNegativeButton(android.R.string.no, null)
+          .show();
     }
   }
 }

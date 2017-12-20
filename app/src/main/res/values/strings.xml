@@ -34,6 +34,10 @@
   </plurals>
   <string name="app_btn_show_reviews">Reviews</string>
 
+  <!-- Ratings -->
+  <string name="app_rating_confirm_delete_title">Delete rating</string>
+  <string name="app_rating_confirm_delete_text">Do you really want to delete this rating? This cannot be undone.</string>
+
   <!-- Errors -->
   <string name="app_error_field_required">This field is required</string>
   <string name="app_error_load_failure_admin_canteen">Could not load canteen</string>
