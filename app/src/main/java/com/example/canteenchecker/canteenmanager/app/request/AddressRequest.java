@@ -2,7 +2,7 @@ package com.example.canteenchecker.canteenmanager.app.request;
 
 import android.content.Context;
 
-import com.example.canteenchecker.canteenmanager.service.ReverseGeoCodingService;
+import com.example.canteenchecker.canteenmanager.service.gms.ReverseGeoCodingService;
 import com.google.android.gms.maps.model.LatLng;
 
 /**

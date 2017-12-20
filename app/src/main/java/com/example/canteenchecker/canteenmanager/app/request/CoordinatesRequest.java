@@ -3,7 +3,7 @@ package com.example.canteenchecker.canteenmanager.app.request;
 import android.content.Context;
 
 import com.example.canteenchecker.canteenmanager.app.dto.LocationDto;
-import com.example.canteenchecker.canteenmanager.service.GeoCodingService;
+import com.example.canteenchecker.canteenmanager.service.gms.GeoCodingService;
 
 /**
  * @author sschmid

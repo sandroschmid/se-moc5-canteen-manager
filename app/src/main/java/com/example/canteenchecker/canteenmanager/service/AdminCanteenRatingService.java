@@ -19,14 +19,14 @@ public final class AdminCanteenRatingService extends BaseBackendService<String> 
   }
 
   @Override
-  String executeRequest(final Intent intent) throws NotAuthenticatedException, BackendException {
+  protected String executeRequest(final Intent intent) throws NotAuthenticatedException, BackendException {
     final String ratingId = intent.getStringExtra(DeleteAdminCanteenRatingRequest.KEY_RATING_ID);
     Backend.getInstance().deleteRatingFromAdminCanteen(getAuthToken(), ratingId);
     return ratingId;
   }
 
   @Override
-  BaseRequestResultEvent<String> getEvent() {
+  protected BaseRequestResultEvent<String> getEvent() {
     return App.getInstance().getEventManager().getRatingDeletedEvent();
   }
 }

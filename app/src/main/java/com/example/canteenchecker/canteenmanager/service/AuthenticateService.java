@@ -21,13 +21,13 @@ public final class AuthenticateService extends BaseBackendService<String> {
   }
 
   @Override
-  String executeRequest(final Intent intent) throws BackendException {
+  protected String executeRequest(final Intent intent) throws BackendException {
     final CredentialsDto credentialsDto = intent.getParcelableExtra(AuthenticateRequest.KEY_DATA);
     return Backend.getInstance().authenticate(credentialsDto);
   }
 
   @Override
-  BaseRequestResultEvent<String> getEvent() {
+  protected BaseRequestResultEvent<String> getEvent() {
     return App.getInstance().getEventManager().getAuthenticatedEvent();
   }
 }

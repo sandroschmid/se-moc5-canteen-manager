@@ -12,7 +12,7 @@ public abstract class BaseBackendService<TResult> extends BaseRequestService<TRe
     super(name);
   }
 
-  String getAuthToken() throws NotAuthenticatedException {
+  protected String getAuthToken() throws NotAuthenticatedException {
     return App.getInstance().getSecurityManager().getAuthToken();
   }
 }

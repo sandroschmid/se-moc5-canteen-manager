@@ -1,4 +1,4 @@
-package com.example.canteenchecker.canteenmanager.service;
+package com.example.canteenchecker.canteenmanager.service.gms;
 
 import android.content.Intent;
 import android.location.Address;
@@ -8,6 +8,7 @@ import com.example.canteenchecker.canteenmanager.App;
 import com.example.canteenchecker.canteenmanager.app.dto.LocationDto;
 import com.example.canteenchecker.canteenmanager.app.event.BaseRequestResultEvent;
 import com.example.canteenchecker.canteenmanager.app.request.CoordinatesRequest;
+import com.example.canteenchecker.canteenmanager.service.BaseRequestService;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.io.IOException;
@@ -23,7 +24,7 @@ public final class GeoCodingService extends BaseRequestService<LatLng> {
   }
 
   @Override
-  LatLng executeRequest(final Intent intent) throws IOException {
+  protected LatLng executeRequest(final Intent intent) throws IOException {
     final LocationDto locationDto = intent.getParcelableExtra(CoordinatesRequest.KEY_DATA);
     final Geocoder geocoder = new Geocoder(this);
     final List<Address> addresses = geocoder.getFromLocationName(locationDto.getLocation(), 10);
@@ -43,7 +44,7 @@ public final class GeoCodingService extends BaseRequestService<LatLng> {
   }
 
   @Override
-  BaseRequestResultEvent<LatLng> getEvent() {
+  protected BaseRequestResultEvent<LatLng> getEvent() {
     return App.getInstance().getEventManager().getCoordinatesReceivedEvent();
   }
 }

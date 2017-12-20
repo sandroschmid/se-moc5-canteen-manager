@@ -21,7 +21,7 @@ public final class AdminCanteenService extends BaseBackendService<Canteen> {
   }
 
   @Override
-  Canteen executeRequest(final Intent intent) throws NotAuthenticatedException, BackendException {
+  protected Canteen executeRequest(final Intent intent) throws NotAuthenticatedException, BackendException {
     final Backend backend = Backend.getInstance();
     final BaseRequest.Method method = (BaseRequest.Method) intent.getSerializableExtra(BaseRequest.KEY_METHOD);
     if (BaseRequest.Method.GET.equals(method)) {
@@ -33,7 +33,7 @@ public final class AdminCanteenService extends BaseBackendService<Canteen> {
   }
 
   @Override
-  BaseRequestResultEvent<Canteen> getEvent() {
+  protected BaseRequestResultEvent<Canteen> getEvent() {
     return App.getInstance().getEventManager().getAdminCanteenReceivedEvent();
   }
 }

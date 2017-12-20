@@ -38,7 +38,7 @@ public abstract class BaseRequestService<TResult> extends IntentService {
     }
   }
 
-  abstract TResult executeRequest(final Intent intent) throws Exception;
+  protected abstract TResult executeRequest(final Intent intent) throws Exception;
 
-  abstract BaseRequestResultEvent<TResult> getEvent();
+  protected abstract BaseRequestResultEvent<TResult> getEvent();
 }
