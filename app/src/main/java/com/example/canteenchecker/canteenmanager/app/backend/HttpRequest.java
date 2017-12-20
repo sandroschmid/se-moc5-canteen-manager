@@ -31,10 +31,7 @@ public final class HttpRequest {
       try {
         return new ObjectMapper().readValue(inputStream, cls);
       } finally {
-        try {
-          inputStream.close();
-        } catch (IOException ignored) {
-        }
+        inputStream.close();
       }
     } catch (IOException e) {
       throw new BackendException(e);
@@ -49,28 +46,20 @@ public final class HttpRequest {
   ) throws BackendException {
     final ObjectMapper objectMapper = new ObjectMapper();
     try {
-      final HttpURLConnection connection = createConnection("POST", relativeURL, authToken);
+      final URLConnection connection = createConnection("POST", relativeURL, authToken);
       connection.setDoOutput(true);
       final OutputStream outputStream = connection.getOutputStream();
       try {
         objectMapper.writeValue(outputStream, data);
-      } finally {
-        try {
-          outputStream.close();
-        } catch (IOException ignored) {
-          throw new BackendException(ignored);
-        }
-      }
 
-      final InputStream inputStream = connection.getInputStream();
-      try {
-        return objectMapper.readValue(inputStream, cls);
-      } finally {
+        final InputStream inputStream = connection.getInputStream();
         try {
+          return objectMapper.readValue(inputStream, cls);
+        } finally {
           inputStream.close();
-        } catch (IOException ignored) {
-          throw new BackendException(ignored);
         }
+      } finally {
+        outputStream.close();
       }
     } catch (IOException e) {
       throw new BackendException(e);
@@ -83,18 +72,15 @@ public final class HttpRequest {
       final REQUEST data
   ) throws BackendException {
     final ObjectMapper objectMapper = new ObjectMapper();
+    final URLConnection connection = createConnection("PUT", relativeURL, authToken);
+    connection.setDoOutput(true);
     try {
-      final HttpURLConnection connection = createConnection("PUT", relativeURL, authToken);
-      connection.setDoOutput(true);
       final OutputStream outputStream = connection.getOutputStream();
       try {
         objectMapper.writeValue(outputStream, data);
+        connection.getInputStream().close();
       } finally {
-        try {
-          outputStream.close();
-        } catch (IOException ignored) {
-          throw new BackendException(ignored);
-        }
+        outputStream.close();
       }
     } catch (IOException e) {
       throw new BackendException(e);
@@ -102,10 +88,15 @@ public final class HttpRequest {
   }
 
   public void delete(final String relativeURL, final String authToken) throws BackendException {
-    createConnection("DELETE", relativeURL, authToken);
+    final URLConnection connection = createConnection("DELETE", relativeURL, authToken);
+    try {
+      connection.getInputStream().close();
+    } catch (IOException e) {
+      throw new BackendException(e);
+    }
   }
 
-  private HttpURLConnection createConnection(
+  private URLConnection createConnection(
       final String method,
       final String relativeURL,
       final String authToken
