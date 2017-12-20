@@ -33,6 +33,10 @@ public final class CanteenFormFragment extends BaseFormFragment implements SeekB
   private static final String STATE_CANTEEN = "STATE_CANTEEN";
   private static final NumberFormat priceFormat = NumberFormat.getNumberInstance();
 
+  static {
+    priceFormat.setMaximumFractionDigits(2);
+  }
+
   private AppCompatTextView tvAvgWaitingTime;
   private FloatingActionButton btnShowReviews;
 
