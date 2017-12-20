@@ -44,5 +44,7 @@
   <string name="app_error_load_failure_adress">Could not load address</string>
   <string name="app_error_delete_rating_failure">Could not delete rating</string>
   <string name="app_common_currency_euro">€</string>
+  <string name="app_error_cannot_show_website">Could not find any app to view this website</string>
+  <string name="app_error_cannot_call">Could not find any app to handle this number</string>
 
 </resources>

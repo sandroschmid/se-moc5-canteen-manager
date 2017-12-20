@@ -107,37 +107,65 @@
           android:src="@mipmap/ic_map_black" />
       </android.support.v7.widget.LinearLayoutCompat>
 
-      <android.support.design.widget.TextInputLayout
+      <android.support.v7.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/app_gap_normal">
+        android:layout_marginBottom="@dimen/app_gap_normal"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
-        <android.support.v7.widget.AppCompatEditText
-          android:id="@+id/etWebsite"
-          android:layout_width="match_parent"
+        <android.support.design.widget.TextInputLayout
+          android:layout_width="0dp"
           android:layout_height="wrap_content"
-          android:hint="@string/app_canteen_hint_website"
-          android:inputType="textWebEditText"
-          android:maxLines="1"
-          android:singleLine="true" />
+          android:layout_weight="1">
 
-      </android.support.design.widget.TextInputLayout>
+          <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/etWebsite"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/app_canteen_hint_website"
+            android:inputType="textWebEditText"
+            android:maxLines="1"
+            android:singleLine="true" />
 
-      <android.support.design.widget.TextInputLayout
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.v7.widget.AppCompatImageButton
+          android:id="@+id/btnViewWeb"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:src="@mipmap/ic_web_black" />
+      </android.support.v7.widget.LinearLayoutCompat>
+
+      <android.support.v7.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/app_gap_normal">
+        android:layout_marginBottom="@dimen/app_gap_normal"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
-        <android.support.v7.widget.AppCompatEditText
-          android:id="@+id/etPhone"
-          android:layout_width="match_parent"
+        <android.support.design.widget.TextInputLayout
+          android:layout_width="0dp"
           android:layout_height="wrap_content"
-          android:hint="@string/app_canteen_hint_phone"
-          android:inputType="phone"
-          android:maxLines="1"
-          android:singleLine="true" />
+          android:layout_weight="1">
 
-      </android.support.design.widget.TextInputLayout>
+          <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/etPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/app_canteen_hint_phone"
+            android:inputType="phone"
+            android:maxLines="1"
+            android:singleLine="true" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.v7.widget.AppCompatImageButton
+          android:id="@+id/btnCall"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:src="@mipmap/ic_call_black" />
+      </android.support.v7.widget.LinearLayoutCompat>
 
       <android.support.v7.widget.LinearLayoutCompat
         android:layout_width="match_parent"

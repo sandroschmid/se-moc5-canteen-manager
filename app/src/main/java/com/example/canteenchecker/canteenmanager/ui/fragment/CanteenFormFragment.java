@@ -2,6 +2,7 @@ package com.example.canteenchecker.canteenmanager.ui.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,6 +12,7 @@ import android.support.v7.widget.AppCompatSeekBar;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
 import android.widget.SeekBar;
+import android.widget.Toast;
 
 import com.example.canteenchecker.canteenmanager.R;
 import com.example.canteenchecker.canteenmanager.app.entity.Canteen;
@@ -147,6 +149,49 @@ public final class CanteenFormFragment extends BaseFormFragment implements SeekB
       }
     });
     btnShowReviews.setVisibility(hasShowReviewsButton ? View.VISIBLE : View.GONE);
+
+    view.findViewById(R.id.btnViewWeb).setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(final View view) {
+        final Intent websiteIntent = new Intent(
+            Intent.ACTION_VIEW,
+            Uri.parse(CanteenFormFragment.this.<TextInput>getInput(R.id.etWebsite).getValue())
+        );
+
+        if (getContext().getPackageManager().queryIntentActivities(websiteIntent, 0).size() > 0) {
+          startActivity(websiteIntent);
+        } else {
+          Toast.makeText(
+              getContext(),
+              R.string.app_error_cannot_show_website,
+              Toast.LENGTH_SHORT
+          ).show();
+        }
+      }
+    });
+
+    view.findViewById(R.id.btnCall).setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(final View view) {
+        final Intent websiteIntent = new Intent(
+            Intent.ACTION_VIEW,
+            Uri.parse(String.format(
+                "tel:%s",
+                CanteenFormFragment.this.<TextInput>getInput(R.id.etPhone).getValue()
+            ))
+        );
+
+        if (getContext().getPackageManager().queryIntentActivities(websiteIntent, 0).size() > 0) {
+          startActivity(websiteIntent);
+        } else {
+          Toast.makeText(
+              getContext(),
+              R.string.app_error_cannot_call,
+              Toast.LENGTH_SHORT
+          ).show();
+        }
+      }
+    });
   }
 
   @Override
