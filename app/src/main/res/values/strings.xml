@@ -12,6 +12,7 @@
 
   <!-- Common -->
   <string name="app_btn_save">Save</string>
+  <string name="app_common_currency_euro">€</string>
 
   <!-- Splash screen -->
   <string name="app_splash_loading">Loading…</string>
@@ -40,10 +41,10 @@
 
   <!-- Errors -->
   <string name="app_error_field_required">This field is required</string>
+  <string name="app_error_auth_failure">Authentication failed. Did you spell everything correctly?</string>
   <string name="app_error_load_failure_admin_canteen">Could not load canteen</string>
   <string name="app_error_load_failure_adress">Could not load address</string>
   <string name="app_error_delete_rating_failure">Could not delete rating</string>
-  <string name="app_common_currency_euro">€</string>
   <string name="app_error_cannot_show_website">Could not find any app to view this website</string>
   <string name="app_error_cannot_call">Could not find any app to handle this number</string>
   <string name="app_error_no_ratings">Looks like there are no ratings yet</string>

@@ -6,6 +6,7 @@ import android.support.v7.widget.AppCompatEditText;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.canteenchecker.canteenmanager.App;
 import com.example.canteenchecker.canteenmanager.R;
@@ -35,7 +36,10 @@ public final class LoginActivity extends BaseFormActivity {
     super.initView();
 
     int order = 1;
-    addInput(TextInput.createRequiredTextInput(order++, (AppCompatEditText) findViewById(R.id.etUsername)));
+    addInput(TextInput.createRequiredTextInput(
+        order++,
+        (AppCompatEditText) findViewById(R.id.etUsername)
+    ));
 
     final AppCompatEditText etPassword = findViewById(R.id.etPassword);
     etPassword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -63,6 +67,11 @@ public final class LoginActivity extends BaseFormActivity {
           startActivity(new Intent(LoginActivity.this, App.HOME_ACTIVITY));
         } else {
           stopLoading();
+          Toast.makeText(
+              LoginActivity.this,
+              R.string.app_error_auth_failure,
+              Toast.LENGTH_SHORT
+          ).show();
         }
       }
     };
