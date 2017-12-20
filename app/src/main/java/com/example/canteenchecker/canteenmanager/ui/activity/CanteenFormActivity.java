@@ -18,7 +18,7 @@ import com.example.canteenchecker.canteenmanager.app.event.BaseRequestResultEven
 import com.example.canteenchecker.canteenmanager.app.event.EventReceiver;
 import com.example.canteenchecker.canteenmanager.app.request.GetAdminCanteenRequest;
 import com.example.canteenchecker.canteenmanager.ui.fragment.CanteenFormFragment;
-import com.example.canteenchecker.canteenmanager.ui.fragment.ReviewsListFragment;
+import com.example.canteenchecker.canteenmanager.ui.fragment.RatingsListFragment;
 
 /**
  * @author sschmid
@@ -56,7 +56,7 @@ public final class CanteenFormActivity extends BaseLoadingActivity implements Sw
 
   private SwipeRefreshLayout swipeRefreshLayout;
   private CanteenFormFragment canteenFormFragment;
-  private ReviewsListFragment reviewsListFragment;
+  private RatingsListFragment ratingsListFragment;
 
   private Canteen canteen;
 
@@ -133,9 +133,9 @@ public final class CanteenFormActivity extends BaseLoadingActivity implements Sw
         .replace(R.id.fragCanteenForm, canteenFormFragment);
 
     if (reviewListContainer != null) {
-      reviewsListFragment = new ReviewsListFragment();
-      reviewsListFragment.setArguments(args);
-      fragmentTransaction.replace(R.id.fragReviewList, reviewsListFragment);
+      ratingsListFragment = new RatingsListFragment();
+      ratingsListFragment.setArguments(args);
+      fragmentTransaction.replace(R.id.fragReviewList, ratingsListFragment);
     }
 
     fragmentTransaction.commit();
@@ -180,8 +180,8 @@ public final class CanteenFormActivity extends BaseLoadingActivity implements Sw
 
   private void setCanteen(final Canteen canteen) {
     canteenFormFragment.setCanteen(canteen);
-    if (reviewsListFragment != null) {
-      reviewsListFragment.setCanteen(canteen);
+    if (ratingsListFragment != null) {
+      ratingsListFragment.setCanteen(canteen);
     }
   }
 }

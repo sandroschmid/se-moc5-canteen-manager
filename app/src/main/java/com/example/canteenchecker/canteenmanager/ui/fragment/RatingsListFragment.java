@@ -21,7 +21,7 @@ import com.example.canteenchecker.canteenmanager.ui.adapter.RatingsAdapter;
 /**
  * @author sschmid
  */
-public final class ReviewsListFragment extends BaseFragment {
+public final class RatingsListFragment extends BaseFragment {
 
   private static final String STATE_CANTEEN = "STATE_CANTEEN";
 

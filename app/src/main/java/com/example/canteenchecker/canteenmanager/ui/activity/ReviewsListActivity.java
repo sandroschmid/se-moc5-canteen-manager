@@ -13,7 +13,7 @@ import com.example.canteenchecker.canteenmanager.app.event.AdminCanteenReceivedE
 import com.example.canteenchecker.canteenmanager.app.event.BaseRequestResultEvent;
 import com.example.canteenchecker.canteenmanager.app.event.EventReceiver;
 import com.example.canteenchecker.canteenmanager.app.request.GetAdminCanteenRequest;
-import com.example.canteenchecker.canteenmanager.ui.fragment.ReviewsListFragment;
+import com.example.canteenchecker.canteenmanager.ui.fragment.RatingsListFragment;
 
 /**
  * @author sschmid
@@ -41,7 +41,7 @@ public final class ReviewsListActivity extends BaseLoadingActivity {
   private EventReceiver<BaseRequestResultEvent.RequestResult<Canteen>> adminCanteenEventReceiver;
 
   private SwipeRefreshLayout swipeRefreshLayout;
-  private ReviewsListFragment reviewsListFragment;
+  private RatingsListFragment ratingsListFragment;
 
   @Override
   protected int getLayout() {
@@ -55,12 +55,12 @@ public final class ReviewsListActivity extends BaseLoadingActivity {
     swipeRefreshLayout = findViewById(R.id.swipeRefresh);
     swipeRefreshLayout.setOnRefreshListener(this);
 
-    reviewsListFragment = new ReviewsListFragment();
-    reviewsListFragment.setArguments(getIntent().getExtras());
+    ratingsListFragment = new RatingsListFragment();
+    ratingsListFragment.setArguments(getIntent().getExtras());
 
     getSupportFragmentManager()
         .beginTransaction()
-        .replace(R.id.fragReviewList, reviewsListFragment)
+        .replace(R.id.fragReviewList, ratingsListFragment)
         .commit();
   }
 
@@ -105,6 +105,6 @@ public final class ReviewsListActivity extends BaseLoadingActivity {
   }
 
   private void showData(final Canteen canteen) {
-    reviewsListFragment.setCanteen(canteen);
+    ratingsListFragment.setCanteen(canteen);
   }
 }
