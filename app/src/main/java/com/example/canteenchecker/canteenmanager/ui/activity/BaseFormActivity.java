@@ -5,7 +5,7 @@ import android.view.View;
 
 import com.example.canteenchecker.canteenmanager.R;
 import com.example.canteenchecker.canteenmanager.app.form.FormInput;
-import com.example.canteenchecker.canteenmanager.ui.utility.FormViewHandler;
+import com.example.canteenchecker.canteenmanager.app.form.FormViewHandler;
 
 /**
  * @author sschmid

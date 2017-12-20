@@ -4,7 +4,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 
 import com.example.canteenchecker.canteenmanager.R;
-import com.example.canteenchecker.canteenmanager.ui.utility.LoadingViewHandler;
+import com.example.canteenchecker.canteenmanager.app.utility.LoadingViewHandler;
 
 /**
  * @author sschmid

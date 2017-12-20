@@ -1,4 +1,4 @@
-package com.example.canteenchecker.canteenmanager.ui.utility;
+package com.example.canteenchecker.canteenmanager.app.utility;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

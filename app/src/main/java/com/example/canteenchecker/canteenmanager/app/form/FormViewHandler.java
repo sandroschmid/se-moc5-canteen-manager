@@ -1,9 +1,9 @@
-package com.example.canteenchecker.canteenmanager.ui.utility;
+package com.example.canteenchecker.canteenmanager.app.form;
 
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.canteenchecker.canteenmanager.app.form.FormInput;
+import com.example.canteenchecker.canteenmanager.app.utility.LoadingViewHandler;
 
 import java.util.HashMap;
 import java.util.Map;
