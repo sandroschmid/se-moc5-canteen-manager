@@ -1,7 +1,6 @@
 package com.example.canteenchecker.canteenmanager.app.utility;
 
 import android.content.Context;
-import android.content.Intent;
 
 import com.example.canteenchecker.canteenmanager.ui.activity.LoginActivity;
 import com.example.canteenchecker.canteenmanager.ui.activity.SplashActivity;
@@ -35,7 +34,7 @@ public final class AuthenticationGuard {
       return true;
     }
 
-    context.startActivity(new Intent(context, LoginActivity.class));
+    LoginActivity.show(context);
     return false;
   }
 }
