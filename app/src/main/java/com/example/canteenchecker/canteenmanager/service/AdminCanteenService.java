@@ -27,7 +27,7 @@ public final class AdminCanteenService extends BaseBackendService<Canteen> {
     if (BaseRequest.Method.GET.equals(method)) {
       return backend.getAdminCanteen(getAuthToken());
     } else {
-      final Canteen canteen = intent.getParcelableExtra(PutAdminCanteenRequest.KEY_DTO);
+      final Canteen canteen = intent.getParcelableExtra(PutAdminCanteenRequest.KEY_DATA);
       return backend.putAdminCanteen(getAuthToken(), canteen);
     }
   }

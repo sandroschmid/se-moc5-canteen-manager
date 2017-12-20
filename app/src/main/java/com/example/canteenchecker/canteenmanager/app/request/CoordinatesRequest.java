@@ -11,7 +11,7 @@ import com.example.canteenchecker.canteenmanager.service.GeoCodingService;
 public final class CoordinatesRequest extends BaseRequest<GeoCodingService> {
 
   public CoordinatesRequest(final Context context, final String location) {
-    super(context, Method.POST, new LocationDto(location));
+    super(context, Method.GET, new LocationDto(location));
   }
 
   @Override

@@ -97,9 +97,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/app_canteen_hint_address"
-            android:inputType="textCapCharacters"
-            android:maxLines="1"
-            android:singleLine="true" />
+            android:inputType="textCapCharacters|textMultiLine"
+            android:maxLines="3" />
 
         </android.support.design.widget.TextInputLayout>
 

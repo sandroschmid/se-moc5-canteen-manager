@@ -71,6 +71,10 @@
     <service
       android:name=".service.GeoCodingService"
       android:exported="false" />
+    
+    <service
+      android:name=".service.ReverseGeoCodingService"
+      android:exported="false" />
 
     <service
       android:name=".service.firebase.InstanceIdService"

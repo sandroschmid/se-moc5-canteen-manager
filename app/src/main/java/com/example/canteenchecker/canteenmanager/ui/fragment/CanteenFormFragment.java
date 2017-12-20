@@ -1,5 +1,7 @@
 package com.example.canteenchecker.canteenmanager.ui.fragment;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -27,6 +29,7 @@ import java.text.NumberFormat;
  */
 public final class CanteenFormFragment extends BaseFormFragment implements SeekBar.OnSeekBarChangeListener {
 
+  private static final int REQUEST_CODE_ADDRESS = 1;
   private static final String STATE_CANTEEN = "STATE_CANTEEN";
   private static final NumberFormat priceFormat = NumberFormat.getNumberInstance();
 
@@ -46,11 +49,7 @@ public final class CanteenFormFragment extends BaseFormFragment implements SeekB
   // region SeekBar.ChangeListener
 
   @Override
-  public void onProgressChanged(
-      final SeekBar seekBar,
-      final int progress,
-      final boolean fromUser
-  ) {
+  public void onProgressChanged(final SeekBar seekBar, final int progress, final boolean fromUser) {
     tvAvgWaitingTime.setText(getResources().getQuantityString(
         R.plurals.app_canteen_label_avg_waiting_time,
         progress,
@@ -92,6 +91,16 @@ public final class CanteenFormFragment extends BaseFormFragment implements SeekB
   @Override
   public void restoreSavedState(final Bundle savedInstanceState) {
     setCanteen((Canteen) savedInstanceState.getParcelable(STATE_CANTEEN));
+  }
+
+  @Override
+  public void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    if (requestCode == REQUEST_CODE_ADDRESS && resultCode == Activity.RESULT_OK) {
+      final String address = MapEditorActivity.getResult(data);
+      canteen.setAddress(address);
+      this.<TextInput>getInput(R.id.etAddress).setValue(address);
+    }
   }
 
   @Override
@@ -163,6 +172,7 @@ public final class CanteenFormFragment extends BaseFormFragment implements SeekB
   }
 
   private void showMap() {
-    MapEditorActivity.show(getContext(), canteen.getAddress());
+    final Intent intent = MapEditorActivity.createIntent(getContext(), canteen.getAddress());
+    startActivityForResult(intent, REQUEST_CODE_ADDRESS);
   }
 }

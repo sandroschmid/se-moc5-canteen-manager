@@ -24,7 +24,7 @@ public final class GeoCodingService extends BaseRequestService<LatLng> {
 
   @Override
   LatLng executeRequest(final Intent intent) throws IOException {
-    final LocationDto locationDto = intent.getParcelableExtra(CoordinatesRequest.KEY_DTO);
+    final LocationDto locationDto = intent.getParcelableExtra(CoordinatesRequest.KEY_DATA);
     final Geocoder geocoder = new Geocoder(this);
     final List<Address> addresses = geocoder.getFromLocationName(locationDto.getLocation(), 10);
     if (addresses != null && !addresses.isEmpty()) {

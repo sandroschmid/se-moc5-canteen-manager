@@ -84,7 +84,7 @@ public final class LoadingViewHandler {
         }
       });
     } else {
-      // The ViewPropertyAnimator APIs are not available, so simply show
+      // The ViewPropertyAnimator APIs are not available, so simply createIntent
       // and hide the relevant UI components.
       vProgress.setVisibility(isShowing ? View.VISIBLE : View.GONE);
       vContent.setVisibility(isShowing ? View.GONE : View.VISIBLE);

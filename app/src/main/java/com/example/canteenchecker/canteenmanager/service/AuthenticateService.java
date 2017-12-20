@@ -22,7 +22,7 @@ public final class AuthenticateService extends BaseBackendService<String> {
 
   @Override
   String executeRequest(final Intent intent) throws BackendException {
-    final CredentialsDto credentialsDto = intent.getParcelableExtra(AuthenticateRequest.KEY_DTO);
+    final CredentialsDto credentialsDto = intent.getParcelableExtra(AuthenticateRequest.KEY_DATA);
     return Backend.getInstance().authenticate(credentialsDto);
   }
 

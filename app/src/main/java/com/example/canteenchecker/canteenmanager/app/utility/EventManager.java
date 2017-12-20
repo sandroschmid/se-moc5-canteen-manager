@@ -2,6 +2,7 @@ package com.example.canteenchecker.canteenmanager.app.utility;
 
 import android.content.Context;
 
+import com.example.canteenchecker.canteenmanager.app.event.AddressReceivedEvent;
 import com.example.canteenchecker.canteenmanager.app.event.AdminCanteenReceivedEvent;
 import com.example.canteenchecker.canteenmanager.app.event.AuthenticatedEvent;
 import com.example.canteenchecker.canteenmanager.app.event.CoordinatesReceivedEvent;
@@ -18,6 +19,7 @@ public final class EventManager {
   private final AdminCanteenReceivedEvent adminCanteenReceivedEvent;
   private final RatingDeletedEvent ratingDeletedEvent;
   private final CoordinatesReceivedEvent coordinatesReceivedEvent;
+  private final AddressReceivedEvent addressReceivedEvent;
 
   public EventManager(final Context context) {
     authenticatedEvent = new AuthenticatedEvent(context);
@@ -25,6 +27,7 @@ public final class EventManager {
     adminCanteenReceivedEvent = new AdminCanteenReceivedEvent(context);
     ratingDeletedEvent = new RatingDeletedEvent(context);
     coordinatesReceivedEvent = new CoordinatesReceivedEvent(context);
+    addressReceivedEvent = new AddressReceivedEvent(context);
   }
 
   public AuthenticatedEvent getAuthenticatedEvent() {
@@ -45,5 +48,9 @@ public final class EventManager {
 
   public CoordinatesReceivedEvent getCoordinatesReceivedEvent() {
     return coordinatesReceivedEvent;
+  }
+
+  public AddressReceivedEvent getAddressReceivedEvent() {
+    return addressReceivedEvent;
   }
 }
