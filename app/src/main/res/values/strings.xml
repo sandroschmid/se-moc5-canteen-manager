@@ -41,6 +41,7 @@
 
   <!-- Errors -->
   <string name="app_error_field_required">This field is required</string>
+  <string name="app_error_field_invalid_float">This number seems to be formatted incorrectly</string>
   <string name="app_error_auth_failure">Authentication failed. Did you spell everything correctly?</string>
   <string name="app_error_load_failure_admin_canteen">Could not load canteen</string>
   <string name="app_error_load_failure_adress">Could not load address</string>

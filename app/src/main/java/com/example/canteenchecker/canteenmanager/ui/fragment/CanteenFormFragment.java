@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.canteenchecker.canteenmanager.R;
 import com.example.canteenchecker.canteenmanager.app.entity.Canteen;
+import com.example.canteenchecker.canteenmanager.app.form.FormInput;
 import com.example.canteenchecker.canteenmanager.app.form.SeekBarInput;
 import com.example.canteenchecker.canteenmanager.app.form.TextInput;
 import com.example.canteenchecker.canteenmanager.app.request.PutAdminCanteenRequest;
@@ -80,7 +81,8 @@ public final class CanteenFormFragment extends BaseFormFragment implements SeekB
     startLoading();
     canteen.setName(this.<TextInput>getInput(R.id.etName).getValue());
     canteen.setMeal(this.<TextInput>getInput(R.id.etMeal).getValue());
-    canteen.setMealPrice(Float.parseFloat(this.<TextInput>getInput(R.id.etMealPrice).getValue()));
+    final String mealPriceValue = this.<TextInput>getInput(R.id.etMealPrice).getValue();
+    canteen.setMealPrice(mealPriceValue.isEmpty() ? 0 : Float.parseFloat(mealPriceValue));
     canteen.setAddress(this.<TextInput>getInput(R.id.etAddress).getValue());
     canteen.setWebsite(this.<TextInput>getInput(R.id.etWebsite).getValue());
     canteen.setPhoneNumber(this.<TextInput>getInput(R.id.etPhone).getValue());
@@ -124,22 +126,47 @@ public final class CanteenFormFragment extends BaseFormFragment implements SeekB
         (AppCompatEditText) view.findViewById(R.id.etName)
     ));
     addInput(new TextInput(++order, (AppCompatEditText) view.findViewById(R.id.etMeal)));
-    addInput(new TextInput(++order, (AppCompatEditText) view.findViewById(R.id.etMealPrice)));
+    addInput(new TextInput(
+        ++order,
+        (AppCompatEditText) view.findViewById(R.id.etMealPrice),
+        new FormInput.Validator<TextInput>() {
+          @Override
+          public boolean isValid(final TextInput input) {
+            if (input.isEmpty()) {
+              return true;
+            }
+
+            try {
+              Float.parseFloat(input.getValue());
+            } catch (NumberFormatException e) {
+              return false;
+            }
+
+            return true;
+          }
+
+          @Override
+          public void showError(final TextInput input) {
+            final AppCompatEditText view = input.getView();
+            view.setError(view.getContext().getString(R.string.app_error_field_invalid_float));
+          }
+        }
+    ));
     addInput(new TextInput(++order, (AppCompatEditText) view.findViewById(R.id.etAddress)));
     addInput(new TextInput(++order, (AppCompatEditText) view.findViewById(R.id.etWebsite)));
-    view.findViewById(R.id.btnMap).setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(final View v) {
-        showMap();
-      }
-    });
-
     addInput(new TextInput(++order, (AppCompatEditText) view.findViewById(R.id.etPhone)));
 
     tvAvgWaitingTime = view.findViewById(R.id.tvAverageWaitingTime);
     final AppCompatSeekBar sbAvgWaitingTime = view.findViewById(R.id.sbAverageWaitingTime);
     addInput(new SeekBarInput(++order, sbAvgWaitingTime));
     sbAvgWaitingTime.setOnSeekBarChangeListener(this);
+
+    view.findViewById(R.id.btnMap).setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(final View v) {
+        showMap();
+      }
+    });
 
     btnShowReviews = view.findViewById(R.id.btnShowReviews);
     btnShowReviews.setOnClickListener(new View.OnClickListener() {

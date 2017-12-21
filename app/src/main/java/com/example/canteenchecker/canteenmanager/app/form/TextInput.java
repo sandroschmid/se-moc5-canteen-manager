@@ -72,6 +72,10 @@ public final class TextInput extends FormInput<TextInput, AppCompatEditText, Str
     return view.getText().toString().trim();
   }
 
+  public boolean isEmpty() {
+    return getValue().isEmpty();
+  }
+
   @Override
   public void removeErrors() {
     view.setError(null);
