@@ -40,7 +40,7 @@ public final class SplashActivity extends BaseActivity {
     if (app.getSecurityManager().isAuthenticated()) {
       new GetAdminCanteenRequest(this).send();
     } else {
-      waitAndLogout();
+      waitAndContinue();
     }
   }
 
@@ -53,7 +53,11 @@ public final class SplashActivity extends BaseActivity {
         if (result.isSuccessful()) {
           CanteenFormActivity.show(SplashActivity.this, result.getData());
         } else {
-          Toast.makeText(SplashActivity.this, R.string.app_error_load_failure_admin_canteen, Toast.LENGTH_SHORT).show();
+          Toast.makeText(
+              SplashActivity.this,
+              R.string.app_error_load_failure_admin_canteen,
+              Toast.LENGTH_SHORT
+          ).show();
         }
       }
     };
@@ -66,7 +70,7 @@ public final class SplashActivity extends BaseActivity {
     // nothing to do
   }
 
-  private void waitAndLogout() {
+  private void waitAndContinue() {
     new AsyncTask<Void, Void, Void>() {
       @Override
       protected Void doInBackground(final Void... voids) {
@@ -80,12 +84,8 @@ public final class SplashActivity extends BaseActivity {
 
       @Override
       protected void onPostExecute(final Void result) {
-        logout();
+        LoginActivity.show(SplashActivity.this, false);
       }
     }.execute();
-  }
-
-  private void logout() {
-    App.getInstance().getEventManager().getSignedOutEvent().send();
   }
 }

@@ -21,7 +21,18 @@ import com.example.canteenchecker.canteenmanager.app.request.AuthenticateRequest
 public final class LoginActivity extends BaseFormActivity {
 
   public static void show(final Context context) {
-    context.startActivity(new Intent(context, LoginActivity.class));
+    LoginActivity.show(context, true);
+  }
+
+  public static void show(final Context context, final boolean clearStack) {
+    final Intent intent = new Intent(context, LoginActivity.class);
+    if (clearStack) {
+      intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+    } else {
+      intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    }
+
+    context.startActivity(intent);
   }
 
   private EventReceiver<BaseRequestResultEvent.RequestResult<String>> authEventReceiver;
