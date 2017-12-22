@@ -30,6 +30,10 @@ public final class PushService extends FirebaseMessagingService {
         )
     );
 
+    if (!App.getInstance().getSecurityManager().isAuthenticated()) {
+      return;
+    }
+
     final Map<String, String> data = remoteMessage.getData();
     if (TYPE_VALUE.equals(data.get(TYPE_KEY))) {
       final String updatedCanteen = data.get(CANTEEN_ID_KEY);
