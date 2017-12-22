@@ -28,11 +28,13 @@ public final class HttpRequest {
     try {
       final URLConnection connection = createConnection("GET", relativeURL, authToken);
       final InputStream inputStream = connection.getInputStream();
+      final T result;
       try {
-        return new ObjectMapper().readValue(inputStream, cls);
+        result = new ObjectMapper().readValue(inputStream, cls);
       } finally {
         inputStream.close();
       }
+      return result;
     } catch (IOException e) {
       throw new BackendException(e);
     }
