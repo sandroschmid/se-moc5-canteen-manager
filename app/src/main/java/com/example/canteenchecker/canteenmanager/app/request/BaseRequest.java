@@ -44,7 +44,11 @@ public abstract class BaseRequest<TService extends Service> {
   public final void send() {
     final Intent intent = new Intent(context, getServiceClass());
     setData(intent);
-    context.startService(intent);
+    try {
+      context.startService(intent);
+    } catch (IllegalStateException e) {
+      // app in background
+    }
   }
 
   abstract Class<TService> getServiceClass();
