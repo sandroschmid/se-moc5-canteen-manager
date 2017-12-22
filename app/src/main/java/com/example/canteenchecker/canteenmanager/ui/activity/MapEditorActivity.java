@@ -211,9 +211,9 @@ public final class MapEditorActivity
           marker = map.addMarker(new MarkerOptions().position(latLng));
           map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, DEFAULT_MAP_ZOOM_FACTOR));
         }
-        stopLoading();
       }
     });
+    stopLoading();
   }
 
   private void showData(final Address address) {
@@ -228,10 +228,9 @@ public final class MapEditorActivity
           final LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
           marker = map.addMarker(new MarkerOptions().position(latLng));
         }
-
-        stopLoading();
       }
     });
+    stopLoading();
   }
 
   private void removeExistingMarker() {
